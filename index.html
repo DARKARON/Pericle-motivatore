@@ -404,6 +404,73 @@
           </sc-for>
         </div>
 
+        <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--color-divider);padding-top:18px">
+          <div style="font-family:var(--font-heading);font-weight:600;font-size:17px">Voce</div>
+          <div style="display:flex;gap:7px">
+            <sc-if value="{{ timbroDonna }}" hint-placeholder-val="{{ true }}">
+              <button type="button" onClick="{{ scegliDonna }}" style="flex:1;border:1px solid var(--color-accent);background:var(--color-accent);color:var(--color-bg);padding:11px 12px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;text-align:left">Donna · calda e bassa</button>
+            </sc-if>
+            <sc-if value="{{ timbroUomo }}" hint-placeholder-val="{{ false }}">
+              <button type="button" onClick="{{ scegliDonna }}" style="flex:1;border:1px solid var(--color-divider);background:none;color:inherit;padding:11px 12px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;text-align:left" style-hover="border-color:var(--color-accent)">Donna · calda e bassa</button>
+            </sc-if>
+            <sc-if value="{{ timbroUomo }}" hint-placeholder-val="{{ false }}">
+              <button type="button" onClick="{{ scegliUomo }}" style="flex:1;border:1px solid var(--color-accent);background:var(--color-accent);color:var(--color-bg);padding:11px 12px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;text-align:left">Uomo · seria e grave</button>
+            </sc-if>
+            <sc-if value="{{ timbroDonna }}" hint-placeholder-val="{{ true }}">
+              <button type="button" onClick="{{ scegliUomo }}" style="flex:1;border:1px solid var(--color-divider);background:none;color:inherit;padding:11px 12px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;text-align:left" style-hover="border-color:var(--color-accent)">Uomo · seria e grave</button>
+            </sc-if>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <button type="button" onClick="{{ toggleMuto }}" class="btn btn-secondary" style="padding:9px 13px;font-size:13px;cursor:pointer;white-space:nowrap">{{ audioBtn }}</button>
+            <span style="font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-600)">{{ quanteVoci }}</span>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Voci sul telefono</div>
+            <div style="display:flex;flex-wrap:wrap;gap:7px">
+              <sc-for list="{{ vociTrovate }}" as="v" hint-placeholder-count="3">
+                <div>
+                  <sc-if value="{{ v.on }}" hint-placeholder-val="{{ false }}">
+                    <button type="button" onClick="{{ v.pick }}" style="border:1px solid var(--color-accent-2);background:var(--color-accent-2);color:var(--color-bg);padding:8px 12px;border-radius:var(--radius-md);font-size:13px;cursor:pointer;white-space:nowrap">{{ v.label }}</button>
+                  </sc-if>
+                  <sc-if value="{{ v.off }}" hint-placeholder-val="{{ true }}">
+                    <button type="button" onClick="{{ v.pick }}" style="border:1px solid var(--color-divider);background:none;color:inherit;padding:8px 12px;border-radius:var(--radius-md);font-size:13px;cursor:pointer;white-space:nowrap" style-hover="border-color:var(--color-accent-2)">{{ v.label }}</button>
+                  </sc-if>
+                </div>
+              </sc-for>
+              <sc-if value="{{ vociMancanti }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:12.5px;line-height:1.4;color:var(--color-neutral-600)">Qui in anteprima non ci sono voci: sul telefono si sentono.</span>
+              </sc-if>
+            </div>
+          </div>
+
+          <sc-if value="{{ pocheVoci }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:9px;border-top:1px solid var(--color-divider);padding-top:14px">
+              <div style="font-family:var(--font-heading);font-weight:600;font-size:15px">Scaricare le voci italiane su Android</div>
+              <ol style="margin:0;padding-left:19px;display:flex;flex-direction:column;gap:7px;font-size:13.5px;line-height:1.5;color:var(--color-neutral-700)">
+                <li>Installa <a href="https://play.google.com/store/apps/details?id=com.google.android.tts" target="_blank" rel="noopener">Sintesi vocale di Google</a> dal Play Store (spesso è già presente).</li>
+                <li>Impostazioni del telefono → <strong>Accessibilità</strong> → <strong>Sintesi vocale</strong> (su Samsung: Accessibilità → Miglioramenti per l'udito → Sintesi vocale).</li>
+                <li>Motore preferito: <strong>Sintesi vocale di Google</strong> → ingranaggio → <strong>Installa dati vocali</strong> → <strong>Italiano</strong>.</li>
+                <li>Scarica le voci elencate: quelle che finiscono per <em>b</em> e <em>c</em> sono maschili e più gravi, <em>a</em> e <em>d</em> femminili.</li>
+                <li>Torna qui, ricarica la pagina e scegli la voce dall'elenco sopra.</li>
+              </ol>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:11px;border-top:1px solid var(--color-divider);padding-top:18px">
+          <div style="font-family:var(--font-heading);font-weight:600;font-size:17px">Installa sul telefono</div>
+          <sc-if value="{{ installabile }}" hint-placeholder-val="{{ false }}">
+            <button type="button" onClick="{{ installa }}" class="btn btn-primary btn-block" style="justify-content:center;padding:13px;font-size:15px;cursor:pointer">Installa Pericle</button>
+          </sc-if>
+          <sc-if value="{{ installata }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:13.5px;line-height:1.5;color:var(--color-accent-800)">Installata. Si apre a schermo pieno, come un'app.</div>
+          </sc-if>
+          <sc-if value="{{ nonInstallabile }}" hint-placeholder-val="{{ true }}">
+            <div style="font-size:13.5px;line-height:1.55;color:var(--color-neutral-700)">Su Android, in Chrome: menu ⋮ → <strong>Aggiungi a schermata Home</strong> → <strong>Installa</strong>. Il pulsante qui sopra compare da solo quando il telefono lo consente.</div>
+          </sc-if>
+        </div>
+
         <div style="display:flex;flex-direction:column;gap:11px;border-top:1px solid var(--color-divider);padding-top:18px">
           <div style="font-family:var(--font-heading);font-weight:600;font-size:17px">Chiusura di giornata</div>
           <div style="font-style:italic;font-size:14px;line-height:1.45;color:var(--color-neutral-700)">{{ diarioDomanda }}</div>
@@ -636,11 +703,16 @@ class Component extends DCLogic {
       { k: "cibo", label: "Mangiare seduto a un tavolo", nota: "Non in piedi, non davanti al telefono", done: false },
       { k: "respiro", label: "Tre minuti di respiro", nota: "Prima di ripartire", done: false },
       { k: "aspetto", label: "Curare l'aspetto prima di uscire", nota: "Cinque minuti per te", done: true },
-      { k: "sfogo", label: "Dire come sto a qualcuno", nota: "A Vera o a una persona vera", done: false },
+      { k: "sfogo", label: "Dire come sto a qualcuno", nota: "All'assistente o a una persona vera", done: false },
       { k: "hobby", label: "Mezz'ora per te, senza schermo", nota: "La parte che salti sempre", done: false }
     ],
     diario: "",
     giornataChiusa: false,
+    timbro: "donna",
+    voceScelta: "",
+    mutoAudio: false,
+    installabile: false,
+    installata: false,
     bozza: "",
     registrando: false,
     messaggi: [{ chi: "vera", txt: "Sono qui. Dimmi dov'è che ti sei fermato e lo rendiamo piccolo." }],
@@ -660,7 +732,24 @@ class Component extends DCLogic {
     try {
       const salvato = localStorage.getItem("pericle.avatar");
       if (salvato) this.setState({ avatar: salvato });
+      const timbro = localStorage.getItem("pericle.timbro");
+      if (timbro) this.setState({ timbro });
+      const voceScelta = localStorage.getItem("pericle.voce");
+      if (voceScelta) this.setState({ voceScelta });
     } catch (e) { /* storage non disponibile */ }
+
+    if (window.speechSynthesis) {
+      this.caricaVoci = () => this.forceUpdate();
+      window.speechSynthesis.addEventListener("voiceschanged", this.caricaVoci);
+      window.speechSynthesis.getVoices();
+    }
+    this.onInstall = (e) => { e.preventDefault(); this.promptInstall = e; this.setState({ installabile: true }); };
+    window.addEventListener("beforeinstallprompt", this.onInstall);
+    this.onInstalled = () => this.setState({ installabile: false, installata: true });
+    window.addEventListener("appinstalled", this.onInstalled);
+    if (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) {
+      this.setState({ installata: true });
+    }
     this.t = setInterval(() => {
       if (!this.state.running) return;
       const l = this.rimasto() - 1;
@@ -670,7 +759,16 @@ class Component extends DCLogic {
       } else this.setState({ left: l });
     }, 1000);
   }
-  componentWillUnmount() { clearInterval(this.t); clearTimeout(this.vt); }
+  componentWillUnmount() {
+    clearInterval(this.t);
+    clearTimeout(this.vt);
+    if (window.speechSynthesis) {
+      try { window.speechSynthesis.cancel(); } catch (e) { /* nulla */ }
+      if (this.caricaVoci) window.speechSynthesis.removeEventListener("voiceschanged", this.caricaVoci);
+    }
+    window.removeEventListener("beforeinstallprompt", this.onInstall);
+    window.removeEventListener("appinstalled", this.onInstalled);
+  }
 
   tonoAttivo() {
     const p = this.props.tono || "Adattivo";
@@ -684,10 +782,60 @@ class Component extends DCLogic {
   durata() { return (this.props.minutiPatto || 5) * 60; }
   rimasto() { return this.state.left === null ? this.durata() : this.state.left; }
   nomeAgente() { return this.props.nomeAgente || "Pericle"; }
-  parla(ms) {
+  /* voce reale del telefono, due timbri: donna calda / uomo grave */
+  vociDisponibili() {
+    if (!window.speechSynthesis) return [];
+    return window.speechSynthesis.getVoices().filter(v => (v.lang || "").toLowerCase().indexOf("it") === 0);
+  }
+  scegliVoce() {
+    const lista = this.vociDisponibili();
+    if (!lista.length) return null;
+    if (this.state.voceScelta) {
+      const fissa = lista.filter(v => v.name === this.state.voceScelta)[0];
+      if (fissa) return fissa;
+    }
+    const donna = /alice|elsa|federica|paola|carla|silvia|female|donna|it-it-x-itd|it-it-x-kda|standard-a|wavenet-a/i;
+    const uomo = /luca|cosimo|paolo|marco|diego|male|uomo|it-it-x-itc|it-it-x-itb|standard-c|wavenet-c/i;
+    const cerca = this.state.timbro === "uomo" ? uomo : donna;
+    return lista.filter(v => cerca.test(v.name))[0] || lista[0];
+  }
+  parla(ms, testo) {
     clearTimeout(this.vt);
-    this.setState({ vocePlay: true });
-    this.vt = setTimeout(() => this.setState({ vocePlay: false }), ms || 2800);
+    const t = (testo || "").trim();
+    const sint = window.speechSynthesis;
+
+    if (this.state.mutoAudio || !sint || !t) {
+      this.setState({ vocePlay: true });
+      this.vt = setTimeout(() => this.setState({ vocePlay: false }), ms || 2800);
+      return;
+    }
+    try {
+      sint.cancel();
+      const u = new SpeechSynthesisUtterance(t);
+      const v = this.scegliVoce();
+      if (v) u.voice = v;
+      u.lang = (v && v.lang) || "it-IT";
+      if (this.state.timbro === "uomo") { u.pitch = 0.55; u.rate = 0.84; u.volume = 1; }
+      else { u.pitch = 1.1; u.rate = 0.9; u.volume = 1; }
+      u.onstart = () => this.setState({ vocePlay: true });
+      u.onend = u.onerror = () => this.setState({ vocePlay: false });
+      sint.speak(u);
+    } catch (e) {
+      this.setState({ vocePlay: true });
+      this.vt = setTimeout(() => this.setState({ vocePlay: false }), ms || 2800);
+    }
+  }
+  cambiaTimbro(t) {
+    this.setState({ timbro: t });
+    try { localStorage.setItem("pericle.timbro", t); } catch (e) { /* nulla */ }
+    setTimeout(() => this.parla(2600, t === "uomo"
+      ? "Da adesso ti parlo io. Poche parole, e le facciamo."
+      : "Da adesso ti parlo io. Piano, ma non ti mollo."), 60);
+  }
+  stopVoce() {
+    clearTimeout(this.vt);
+    if (window.speechSynthesis) { try { window.speechSynthesis.cancel(); } catch (e) { /* nulla */ } }
+    this.setState({ vocePlay: false });
   }
   caricaAvatar(file) {
     if (!file) return;
@@ -696,7 +844,7 @@ class Component extends DCLogic {
       const src = String(r.result);
       this.setState({ avatar: src });
       try { localStorage.setItem("pericle.avatar", src); } catch (e) { /* troppo grande o bloccato */ }
-      this.parla(2200);
+      this.parla(2200, "Ecco, adesso ho una faccia.");
     };
     r.readAsDataURL(file);
   }
@@ -708,7 +856,7 @@ class Component extends DCLogic {
       prossimoId: s.prossimoId + 1,
       nuovoTxt: ""
     }));
-    this.parla(2000);
+    this.parla(2000, "Segnato in agenda. Te lo ricordo io.");
   }
   aggiungiMemoOra() {
     const t = (this.state.nuovoMemo || "").trim();
@@ -718,11 +866,11 @@ class Component extends DCLogic {
       prossimoId: s.prossimoId + 1,
       nuovoMemo: ""
     }));
-    this.parla(2000);
+    this.parla(2000, "Memo preso. Non lo perdo.");
   }
   diVera(txt) {
     this.setState(s => ({ messaggi: s.messaggi.concat([{ chi: "vera", txt }]) }));
-    this.parla(3200);
+    this.parla(3200, txt);
   }
 
   manda(txt, etichetta) {
@@ -739,7 +887,7 @@ class Component extends DCLogic {
       bozza: "",
       messaggi: s.messaggi.concat([{ chi: etichetta || "io", txt: txt.trim() }, { chi: "vera", txt: r }])
     }));
-    this.parla(3200);
+    this.parla(3200, r);
   }
 
   renderVals() {
@@ -778,13 +926,50 @@ class Component extends DCLogic {
       momentoLabel: ora < 12 ? "Prima mattina" : ora < 18 ? "Pomeriggio" : "Fine giornata",
       headline: fatti === 0 ? v.apri[0] : fatti >= s.tasks.length ? v.fine[0] : v.meta[0],
       voceAttiva: s.vocePlay === true,
-      voceBtn: s.vocePlay ? "Sta parlando…" : "Ascolta la sua voce",
+      voceBtn: s.vocePlay ? "Sta parlando… tocca per fermare" : "Fammi sentire la voce",
       onde,
       toggleVoce: () => {
-        clearTimeout(this.vt);
-        if (s.vocePlay) return this.setState({ vocePlay: false });
-        this.setState({ vocePlay: true });
-        this.vt = setTimeout(() => this.setState({ vocePlay: false }), 4200);
+        if (s.vocePlay) return this.stopVoce();
+        const testo = (fatti === 0 ? v.apri[0] : fatti >= s.tasks.length ? v.fine[0] : v.meta[0]);
+        this.parla(4200, testo);
+      },
+      timbroDonna: s.timbro === "donna",
+      timbroUomo: s.timbro === "uomo",
+      scegliDonna: () => this.cambiaTimbro("donna"),
+      scegliUomo: () => this.cambiaTimbro("uomo"),
+      audioBtn: s.mutoAudio ? "Voce spenta" : "Voce accesa",
+      toggleMuto: () => {
+        const muto = !s.mutoAudio;
+        this.setState({ mutoAudio: muto });
+        if (muto) this.stopVoce();
+      },
+      vociMancanti: !window.speechSynthesis,
+      vociTrovate: this.vociDisponibili().map(v => ({
+        label: v.name.replace(/^(Italian|Italiano)\s*/i, ""),
+        on: s.voceScelta === v.name, off: s.voceScelta !== v.name,
+        pick: () => {
+          this.setState({ voceScelta: v.name });
+          try { localStorage.setItem("pericle.voce", v.name); } catch (e) { /* nulla */ }
+          setTimeout(() => this.parla(2600, "Questa è la voce con cui ti parlo."), 60);
+        }
+      })),
+      quanteVoci: (() => {
+        const n = this.vociDisponibili().length;
+        return n === 0 ? "nessuna voce italiana" : n === 1 ? "1 voce italiana" : n + " voci italiane";
+      })(),
+      pocheVoci: this.vociDisponibili().length < 2,
+      resetVoce: () => {
+        this.setState({ voceScelta: "" });
+        try { localStorage.removeItem("pericle.voce"); } catch (e) { /* nulla */ }
+      },
+      installabile: s.installabile && !s.installata,
+      nonInstallabile: !(s.installabile && !s.installata),
+      installata: s.installata,
+      installa: () => {
+        const p = this.promptInstall;
+        if (!p) return;
+        p.prompt();
+        p.userChoice && p.userChoice.then(() => this.setState({ installabile: false }));
       },
 
       taskCount: fatti + " di " + s.tasks.length,
