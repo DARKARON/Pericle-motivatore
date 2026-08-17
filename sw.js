@@ -1,0 +1,30 @@
+/* Jenny — cache di base: l'app si apre anche senza rete */
+const CACHE = 'jenny-v1';
+const ASSETS = [
+  './', './index.html', './manifest.webmanifest',
+  './support.js', './ios-frame.jsx', './image-slot.js',
+  './_ds/broadsheet-df622a89-8321-4fb9-940b-ea77d59c800c/styles.css',
+  './_ds/broadsheet-df622a89-8321-4fb9-940b-ea77d59c800c/_ds_bundle.js',
+  './icons/icon-192.png', './icons/icon-512.png'
+];
+
+self.addEventListener('install', (e) => {
+  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting()));
+});
+
+self.addEventListener('activate', (e) => {
+  e.waitUntil(caches.keys().then((keys) =>
+    Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
+  ).then(() => self.clients.claim()));
+});
+
+self.addEventListener('fetch', (e) => {
+  if (e.request.method !== 'GET') return;
+  e.respondWith(
+    caches.match(e.request).then((hit) => hit || fetch(e.request).then((res) => {
+      const copy = res.clone();
+      caches.open(CACHE).then((c) => c.put(e.request, copy)).catch(() => {});
+      return res;
+    }).catch(() => caches.match('./index.html')))
+  );
+});

@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="theme-color" content="#191817">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Jenny — motivatore</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/broadsheet-df622a89-8321-4fb9-940b-ea77d59c800c/styles.css">
+<script src="_ds/broadsheet-df622a89-8321-4fb9-940b-ea77d59c800c/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<script src="./image-slot.js"></script>
+<style>
+  /* Edizione notturna: gli stessi inchiostri di Broadsheet, stampati su carta scura */
+  :root {
+    --color-bg: #191817;
+    --color-surface: #232120;
+    --color-text: #f4f1ec;
+    --color-divider: color-mix(in srgb, #f4f1ec 20%, transparent);
+    --color-neutral-100: #262422;
+    --color-neutral-200: #322f2c;
+    --color-neutral-300: #423e3a;
+    --color-neutral-400: #6b6560;
+    --color-neutral-500: #98928b;
+    --color-neutral-600: #b0a9a1;
+    --color-neutral-700: #cdc6be;
+    --color-neutral-800: #e4ded7;
+    --color-neutral-900: #f4f1ec;
+    --color-accent: #4cc3e8;
+    --color-accent-100: #14313c;
+    --color-accent-200: #1b4351;
+    --color-accent-300: #266072;
+    --color-accent-400: #3a90ab;
+    --color-accent-500: #4cc3e8;
+    --color-accent-600: #6ed2f0;
+    --color-accent-700: #8fdef5;
+    --color-accent-800: #b2e9fa;
+    --color-accent-900: #d9f5fd;
+    --color-accent-2: #ff5d9e;
+    --color-accent-2-800: #ffc0d8;
+  }
+  body { margin: 0; background: #0c0b0b; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+  a { color: var(--color-accent-700); text-decoration: none; }
+  a:hover { color: var(--color-accent-800); text-decoration: underline; }
+  input, textarea, button { font: inherit; }
+  ::-webkit-scrollbar { width: 0; }
+  @keyframes vera-bar { 0%,100% { transform: scaleY(0.25) } 50% { transform: scaleY(1) } }
+  @keyframes vera-respiro { 0% { transform: scale(0.62); opacity: 0.55 } 21% { transform: scale(1); opacity: 1 } 58% { transform: scale(1); opacity: 1 } 100% { transform: scale(0.62); opacity: 0.55 } }
+  @keyframes vera-pulse { 0%,100% { opacity: 1 } 50% { opacity: 0.35 } }
+</style>
+</helmet>
+<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" dark="{{ true }}" hint-size="402px,874px">
+<div style="height:100%;display:flex;flex-direction:column;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);font-size:15px;padding-top:54px;overflow:hidden">
+
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding:0 20px 10px">
+    <div style="display:flex;flex-direction:column;gap:2px">
+      <div style="font-family:var(--font-heading);font-weight:600;font-size:26px;letter-spacing:0.02em;line-height:1">{{ nomeMaiuscolo }}</div>
+      <div style="font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-accent)">{{ vocePillola }}</div>
+    </div>
+    <div style="flex:none;text-align:right;font-size:10px;letter-spacing:0.05em;text-transform:uppercase;color:var(--color-neutral-600);line-height:1.6;white-space:nowrap">
+      <div>{{ dataOggi }}</div>
+      <sc-if value="{{ streakOn }}" hint-placeholder-val="{{ true }}">
+        <div style="color:var(--color-accent-2)">{{ streakLabel }}</div>
+      </sc-if>
+    </div>
+  </div>
+
+  <div style="flex:1;overflow-y:auto;padding:0 20px 20px">
+
+    <sc-if value="{{ isOggi }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;flex-direction:column;gap:24px">
+
+        <div style="display:flex;flex-direction:column;gap:11px;padding-top:4px">
+          <div style="font-family:var(--font-heading);font-weight:600;font-size:22px;line-height:1.15">Come stai, adesso?</div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px">
+            <sc-for list="{{ moods }}" as="m" hint-placeholder-count="5">
+              <div>
+                <sc-if value="{{ m.on }}" hint-placeholder-val="{{ false }}">
+                  <button type="button" onClick="{{ m.pick }}" style="border:1px solid var(--color-accent);background:var(--color-accent);color:var(--color-bg);padding:9px 14px;border-radius:var(--radius-md);font-size:14px;cursor:pointer;white-space:nowrap">{{ m.label }}</button>
+                </sc-if>
+                <sc-if value="{{ m.off }}" hint-placeholder-val="{{ true }}">
+                  <button type="button" onClick="{{ m.pick }}" style="border:1px solid var(--color-divider);background:none;color:inherit;padding:9px 14px;border-radius:var(--radius-md);font-size:14px;cursor:pointer;white-space:nowrap" style-hover="border-color:var(--color-accent)">{{ m.label }}</button>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;flex-direction:column;gap:7px">
+            <sc-if value="{{ haAvatar }}" hint-placeholder-val="{{ false }}">
+              <figure class="cmyk" style="margin:0;width:100%;position:relative">
+                <div class="print" style="height:320px">
+                  <div ref="{{ avatarRef }}" role="img" aria-label="Avatar" style="width:100%;height:100%;background-size:cover;background-position:center top;background-color:var(--color-neutral-200)"></div>
+                </div>
+              </figure>
+            </sc-if>
+            <sc-if value="{{ senzaAvatar }}" hint-placeholder-val="{{ true }}">
+              <label class="halftone" style="width:100%;height:320px;background:var(--color-accent-100);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;cursor:pointer;text-align:center;padding:0 24px" style-hover="background:var(--color-accent-200)">
+                <span style="font-family:var(--font-heading);font-weight:600;font-size:19px;line-height:1.2">Metti la faccia di {{ nomeAgentePiano }}</span>
+                <span style="font-size:13px;line-height:1.4;color:var(--color-accent-800)">Tocca per scegliere una foto dal telefono, o scattarla</span>
+                <input type="file" accept="image/*" onChange="{{ onFile }}" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"></input>
+              </label>
+            </sc-if>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:10px">
+              <div style="font-size:9.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--color-neutral-600)">{{ nomeAgentePiano }} · {{ statoVoce }}</div>
+              <sc-if value="{{ haAvatar }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;gap:6px;align-items:center">
+                  <label style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-accent-800);border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:5px 9px;cursor:pointer;white-space:nowrap" style-hover="border-color:var(--color-accent)">
+                    Cambia
+                    <input type="file" accept="image/*" onChange="{{ onFile }}" style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none"></input>
+                  </label>
+                  <button type="button" onClick="{{ togliAvatar }}" style="background:none;border:0;padding:4px 2px;cursor:pointer;font-size:15px;color:var(--color-neutral-500)" style-hover="color:var(--color-accent-2)" title="Togli la foto">×</button>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:9px;min-width:0">
+            <div style="font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-neutral-600)">{{ momentoLabel }}</div>
+            <div style="font-family:var(--font-heading);font-weight:600;font-size:22px;line-height:1.14;text-wrap:pretty">{{ headline }}</div>
+            <div style="display:flex;align-items:center;gap:9px">
+              <button type="button" onClick="{{ toggleVoce }}" class="btn btn-secondary" style="padding:7px 11px;font-size:12.5px;cursor:pointer;white-space:nowrap">{{ voceBtn }}</button>
+              <sc-if value="{{ voceAttiva }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:flex-end;gap:3px;height:20px">
+                  <sc-for list="{{ onde }}" as="o" hint-placeholder-count="7">
+                    <div style="width:3px;height:20px;background:var(--color-accent-2);transform-origin:bottom;animation:vera-bar 0.9s ease-in-out infinite;animation-delay:{{ o.delay }}"></div>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+
+        <button type="button" onClick="{{ vaiAgenda }}" style="display:flex;align-items:baseline;justify-content:space-between;gap:10px;width:100%;text-align:left;background:none;border:0;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);padding:12px 2px;cursor:pointer;color:inherit" style-hover="background:var(--color-neutral-100)">
+          <span style="display:flex;flex-direction:column;gap:3px;min-width:0">
+            <span style="font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-accent)">Prossimo impegno</span>
+            <span style="font-size:15px;line-height:1.3">{{ prossimo }}</span>
+          </span>
+          <span style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600);white-space:nowrap">Agenda</span>
+        </button>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+            <div style="font-family:var(--font-heading);font-weight:600;font-size:17px">Le tre cose di oggi</div>
+            <div style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">{{ taskCount }}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <sc-for list="{{ tasks }}" as="t" hint-placeholder-count="3">
+              <button type="button" onClick="{{ t.toggle }}" style="display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--color-divider);padding:13px 2px;cursor:pointer;color:inherit" style-hover="background:var(--color-neutral-100)">
+                <sc-if value="{{ t.done }}" hint-placeholder-val="{{ false }}">
+                  <span style="flex:none;width:20px;height:20px;margin-top:1px;border:1px solid var(--color-accent);background:var(--color-accent);color:var(--color-bg);display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1">✓</span>
+                </sc-if>
+                <sc-if value="{{ t.open }}" hint-placeholder-val="{{ true }}">
+                  <span style="flex:none;width:20px;height:20px;margin-top:1px;border:1px solid var(--color-divider)"></span>
+                </sc-if>
+                <span style="display:flex;flex-direction:column;gap:3px;min-width:0">
+                  <sc-if value="{{ t.done }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:15.5px;line-height:1.3;color:var(--color-neutral-500);text-decoration:line-through">{{ t.txt }}</span>
+                  </sc-if>
+                  <sc-if value="{{ t.open }}" hint-placeholder-val="{{ true }}">
+                    <span style="font-size:15.5px;line-height:1.3">{{ t.txt }}</span>
+                  </sc-if>
+                  <span style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-500)">{{ t.tag }}</span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button type="button" onClick="{{ vaiSblocca }}" class="btn btn-primary btn-block" style="justify-content:center;padding:14px;font-size:15px;cursor:pointer">Sono bloccato adesso</button>
+          <button type="button" onClick="{{ vaiSfogo }}" class="btn btn-ghost btn-block" style="justify-content:center;padding:11px;font-size:14px;cursor:pointer;border:1px solid var(--color-divider)">Ho solo bisogno di sfogarmi</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isAgenda }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:22px;padding-top:8px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-neutral-600)">Agenda e memo</div>
+          <div style="font-family:var(--font-heading);font-weight:600;font-size:21px;line-height:1.15;text-wrap:pretty">{{ agendaTitolo }}</div>
+        </div>
+
+        <div style="display:flex;gap:5px">
+          <sc-for list="{{ settimana }}" as="g" hint-placeholder-count="7">
+            <div style="flex:1">
+              <sc-if value="{{ g.on }}" hint-placeholder-val="{{ false }}">
+                <button type="button" onClick="{{ g.go }}" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid var(--color-accent);background:var(--color-accent);color:var(--color-bg);padding:8px 2px;border-radius:var(--radius-md);cursor:pointer">
+                  <span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase">{{ g.label }}</span>
+                  <span style="font-family:var(--font-heading);font-weight:600;font-size:16px;line-height:1">{{ g.num }}</span>
+                  <span style="font-size:10px">{{ g.punti }}</span>
+                </button>
+              </sc-if>
+              <sc-if value="{{ g.off }}" hint-placeholder-val="{{ true }}">
+                <button type="button" onClick="{{ g.go }}" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid var(--color-divider);background:none;color:inherit;padding:8px 2px;border-radius:var(--radius-md);cursor:pointer" style-hover="border-color:var(--color-accent)">
+                  <span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">{{ g.label }}</span>
+                  <span style="font-family:var(--font-heading);font-weight:600;font-size:16px;line-height:1">{{ g.num }}</span>
+                  <span style="font-size:10px;color:var(--color-accent-2)">{{ g.punti }}</span>
+                </button>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <sc-for list="{{ impegni }}" as="i" hint-placeholder-count="3">
+            <div style="border-bottom:1px solid var(--color-divider)">
+              <sc-if value="{{ i.vista }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 2px">
+                  <button type="button" onClick="{{ i.toggle }}" style="flex:none;width:20px;height:20px;margin-top:2px;background:none;border:0;padding:0;cursor:pointer">
+                    <sc-if value="{{ i.fatto }}" hint-placeholder-val="{{ false }}">
+                      <span style="display:flex;width:20px;height:20px;align-items:center;justify-content:center;border:1px solid var(--color-accent);background:var(--color-accent);color:var(--color-bg);font-size:12px;line-height:1">✓</span>
+                    </sc-if>
+                    <sc-if value="{{ i.aperto }}" hint-placeholder-val="{{ true }}">
+                      <span style="display:block;width:20px;height:20px;border:1px solid var(--color-divider)"></span>
+                    </sc-if>
+                  </button>
+                  <button type="button" onClick="{{ i.modifica }}" style="flex:1;display:flex;flex-direction:column;gap:3px;text-align:left;background:none;border:0;padding:0;cursor:pointer;color:inherit;min-width:0">
+                    <span style="font-family:var(--font-heading);font-weight:600;font-size:13px;letter-spacing:0.04em;color:var(--color-accent-800)">{{ i.ora }}</span>
+                    <sc-if value="{{ i.fatto }}" hint-placeholder-val="{{ false }}">
+                      <span style="font-size:15px;line-height:1.3;color:var(--color-neutral-500);text-decoration:line-through">{{ i.txt }}</span>
+                    </sc-if>
+                    <sc-if value="{{ i.aperto }}" hint-placeholder-val="{{ true }}">
+                      <span style="font-size:15px;line-height:1.3">{{ i.txt }}</span>
+                    </sc-if>
+                  </button>
+                  <button type="button" onClick="{{ i.elimina }}" style="flex:none;background:none;border:0;padding:4px 2px;cursor:pointer;font-size:15px;color:var(--color-neutral-500)" style-hover="color:var(--color-accent-2)" title="Elimina">×</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ i.inModifica }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:8px;padding:12px 2px">
+                  <div style="display:flex;gap:8px">
+                    <input type="time" value="{{ campoOra }}" onChange="{{ onCampoOra }}" class="input" style="width:112px"></input>
+                    <input value="{{ campoTxt }}" onChange="{{ onCampoTxt }}" placeholder="Che impegno è" class="input" style="flex:1;min-width:0"></input>
+                  </div>
+                  <div style="display:flex;gap:8px">
+                    <button type="button" onClick="{{ salvaModifica }}" class="btn btn-primary" style="padding:9px 14px;cursor:pointer">Salva</button>
+                    <button type="button" onClick="{{ annullaModifica }}" class="btn btn-ghost" style="padding:9px 12px;cursor:pointer;border:1px solid var(--color-divider)">Annulla</button>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+          <sc-if value="{{ giornoVuoto }}" hint-placeholder-val="{{ false }}">
+            <div style="padding:14px 2px;font-style:italic;font-size:14px;color:var(--color-neutral-600)">Niente in agenda. Va bene anche così.</div>
+          </sc-if>
+        </div>
+
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="time" value="{{ nuovoOra }}" onChange="{{ onNuovoOra }}" class="input" style="width:112px"></input>
+          <input value="{{ nuovoTxt }}" onChange="{{ onNuovoTxt }}" onKeyDown="{{ onNuovoInvio }}" placeholder="Nuovo impegno" class="input" style="flex:1;min-width:0"></input>
+          <button type="button" onClick="{{ aggiungiImpegno }}" class="btn btn-primary" style="padding:11px 13px;cursor:pointer">+</button>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:11px;border-top:1px solid var(--color-divider);padding-top:18px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+            <div style="font-family:var(--font-heading);font-weight:600;font-size:17px">Memo</div>
+            <div style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">{{ memoCount }}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <sc-for list="{{ memo }}" as="m" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--color-divider);padding:12px 2px">
+                <span style="flex:1;font-size:15px;line-height:1.3;min-width:0">{{ m.txt }}</span>
+                <button type="button" onClick="{{ m.toggleRicorda }}" style="flex:none;background:none;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:5px 9px;cursor:pointer;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;color:inherit" style-hover="border-color:var(--color-accent-2)">{{ m.statoRicorda }}</button>
+                <button type="button" onClick="{{ m.elimina }}" style="flex:none;background:none;border:0;padding:4px 2px;cursor:pointer;font-size:15px;color:var(--color-neutral-500)" style-hover="color:var(--color-accent-2)" title="Elimina">×</button>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input value="{{ nuovoMemo }}" onChange="{{ onNuovoMemo }}" onKeyDown="{{ onMemoInvio }}" placeholder="Scrivi un memo" class="input" style="flex:1;min-width:0"></input>
+            <button type="button" onClick="{{ aggiungiMemo }}" class="btn btn-primary" style="padding:11px 13px;cursor:pointer">+</button>
+          </div>
+          <div style="font-style:italic;font-size:13px;color:var(--color-neutral-600)">{{ memoNota }}</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isSblocca }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:22px;padding-top:8px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-neutral-600)">Sblocco</div>
+          <div style="font-family:var(--font-heading);font-weight:600;font-size:21px;line-height:1.15;text-wrap:pretty">{{ sbloccaTitolo }}</div>
+          <div style="font-style:italic;font-size:14px;line-height:1.45;color:var(--color-neutral-700)">{{ sbloccaLinea }}</div>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:7px">
+          <sc-for list="{{ categorie }}" as="c" hint-placeholder-count="4">
+            <div>
+              <sc-if value="{{ c.on }}" hint-placeholder-val="{{ false }}">
+                <button type="button" onClick="{{ c.pick }}" style="border:1px solid var(--color-accent-2);background:var(--color-accent-2);color:var(--color-bg);padding:8px 13px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;white-space:nowrap">{{ c.label }}</button>
+              </sc-if>
+              <sc-if value="{{ c.off }}" hint-placeholder-val="{{ true }}">
+                <button type="button" onClick="{{ c.pick }}" style="border:1px solid var(--color-divider);background:none;color:inherit;padding:8px 13px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;white-space:nowrap" style-hover="border-color:var(--color-accent-2)">{{ c.label }}</button>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <sc-for list="{{ passi }}" as="p" hint-placeholder-count="3">
+            <button type="button" onClick="{{ p.toggle }}" style="display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--color-divider);padding:13px 2px;cursor:pointer;color:inherit" style-hover="background:var(--color-neutral-100)">
+              <span style="flex:none;font-family:var(--font-heading);font-weight:600;font-size:15px;color:var(--color-accent);width:16px">{{ p.n }}</span>
+              <sc-if value="{{ p.done }}" hint-placeholder-val="{{ false }}">
+                <span style="font-size:15px;line-height:1.35;color:var(--color-neutral-500);text-decoration:line-through">{{ p.txt }}</span>
+              </sc-if>
+              <sc-if value="{{ p.open }}" hint-placeholder-val="{{ true }}">
+                <span style="font-size:15px;line-height:1.35">{{ p.txt }}</span>
+              </sc-if>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--color-divider);padding-top:18px">
+          <div style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Il patto dei {{ minutiPatto }} minuti</div>
+          <div class="cmyk-num" style="font-family:var(--font-heading);font-weight:600;font-size:76px">
+            <span class="paper">{{ timerLabel }}</span>
+            <span class="plate plate-c" aria-hidden="true">{{ timerLabel }}</span>
+            <span class="plate plate-m" aria-hidden="true">{{ timerLabel }}</span>
+            <span class="plate plate-y" aria-hidden="true">{{ timerLabel }}</span>
+          </div>
+          <div style="height:3px;background:var(--color-neutral-200)">
+            <div style="height:3px;background:var(--color-accent);width:{{ timerPct }}"></div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button type="button" onClick="{{ toggleTimer }}" class="btn btn-primary" style="flex:1;justify-content:center;padding:13px;cursor:pointer">{{ timerBtn }}</button>
+            <button type="button" onClick="{{ resetTimer }}" class="btn btn-secondary" style="padding:13px 16px;cursor:pointer">Azzera</button>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:14px;border-top:1px solid var(--color-divider);padding-top:18px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+            <div style="font-family:var(--font-heading);font-weight:600;font-size:17px">Respiro guidato</div>
+            <div style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">4 · 7 · 8</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:18px">
+            <div style="width:96px;height:96px;flex:none;display:flex;align-items:center;justify-content:center">
+              <sc-if value="{{ respiroOn }}" hint-placeholder-val="{{ false }}">
+                <div style="width:96px;height:96px;border-radius:50%;background:var(--color-accent-200);border:1px solid var(--color-accent);animation:vera-respiro 19s ease-in-out infinite"></div>
+              </sc-if>
+              <sc-if value="{{ respiroOff }}" hint-placeholder-val="{{ true }}">
+                <div style="width:60px;height:60px;border-radius:50%;border:1px solid var(--color-divider)"></div>
+              </sc-if>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:9px;min-width:0">
+              <div style="font-size:14px;line-height:1.45;color:var(--color-neutral-700);text-wrap:pretty">{{ respiroTesto }}</div>
+              <button type="button" onClick="{{ toggleRespiro }}" class="btn btn-secondary" style="padding:9px 13px;font-size:13.5px;cursor:pointer;align-self:flex-start">{{ respiroBtn }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCura }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:24px;padding-top:8px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-neutral-600)">Cura di te</div>
+          <div style="font-family:var(--font-heading);font-weight:600;font-size:21px;line-height:1.15;text-wrap:pretty">{{ curaTitolo }}</div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between">
+            <div style="font-family:var(--font-heading);font-weight:600;font-size:17px">Pause dallo schermo</div>
+            <div style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">{{ pauseLabel }}</div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <sc-for list="{{ pause }}" as="p" hint-placeholder-count="4">
+              <div>
+                <sc-if value="{{ p.on }}" hint-placeholder-val="{{ false }}">
+                  <button type="button" onClick="{{ p.tap }}" style="width:60px;height:40px;border:1px solid var(--color-accent);background:var(--color-accent);cursor:pointer"></button>
+                </sc-if>
+                <sc-if value="{{ p.off }}" hint-placeholder-val="{{ true }}">
+                  <button type="button" onClick="{{ p.tap }}" style="width:60px;height:40px;border:1px solid var(--color-divider);background:none;cursor:pointer" style-hover="border-color:var(--color-accent)"></button>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <sc-for list="{{ abitudini }}" as="a" hint-placeholder-count="5">
+            <button type="button" onClick="{{ a.toggle }}" style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--color-divider);padding:14px 2px;cursor:pointer;color:inherit" style-hover="background:var(--color-neutral-100)">
+              <sc-if value="{{ a.done }}" hint-placeholder-val="{{ false }}">
+                <span style="flex:none;width:20px;height:20px;border:1px solid var(--color-accent-2);background:var(--color-accent-2);color:var(--color-bg);display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1">✓</span>
+              </sc-if>
+              <sc-if value="{{ a.open }}" hint-placeholder-val="{{ true }}">
+                <span style="flex:none;width:20px;height:20px;border:1px solid var(--color-divider)"></span>
+              </sc-if>
+              <span style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                <span style="font-size:15.5px;line-height:1.25">{{ a.label }}</span>
+                <span style="font-size:11.5px;color:var(--color-neutral-500)">{{ a.nota }}</span>
+              </span>
+            </button>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:11px;border-top:1px solid var(--color-divider);padding-top:18px">
+          <div style="font-family:var(--font-heading);font-weight:600;font-size:17px">Chiusura di giornata</div>
+          <div style="font-style:italic;font-size:14px;line-height:1.45;color:var(--color-neutral-700)">{{ diarioDomanda }}</div>
+          <textarea value="{{ diario }}" onChange="{{ onDiario }}" placeholder="Anche una riga sola basta." class="input" style="min-height:96px;resize:none;line-height:1.5"></textarea>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button type="button" onClick="{{ chiudiGiornata }}" class="btn btn-primary" style="padding:11px 15px;cursor:pointer">Chiudi la giornata</button>
+            <sc-if value="{{ giornataChiusa }}" hint-placeholder-val="{{ false }}">
+              <span style="font-size:13px;color:var(--color-accent-2)">{{ chiusuraNota }}</span>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isChat }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;gap:14px;padding-top:8px">
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ messaggi }}" as="m" hint-placeholder-count="3">
+            <div>
+              <sc-if value="{{ m.vera }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;flex-direction:column;gap:4px;max-width:88%">
+                  <div style="font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-accent)">{{ m.chi }}</div>
+                  <div style="font-size:15.5px;line-height:1.45;text-wrap:pretty">{{ m.txt }}</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ m.io }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:4px;max-width:88%;margin-left:auto;align-items:flex-end">
+                  <div style="font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-neutral-500)">{{ m.chi }}</div>
+                  <div style="font-size:15px;line-height:1.45;text-align:right;background:var(--color-neutral-100);padding:9px 12px;border-radius:var(--radius-md)">{{ m.txt }}</div>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:7px;border-top:1px solid var(--color-divider);padding-top:14px">
+          <sc-for list="{{ rapide }}" as="r" hint-placeholder-count="4">
+            <button type="button" onClick="{{ r.tap }}" style="border:1px solid var(--color-divider);background:none;color:inherit;padding:8px 12px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;white-space:nowrap" style-hover="border-color:var(--color-accent);color:var(--color-accent-800)">{{ r.label }}</button>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ registrando }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:12px;border:1px solid var(--color-accent-2);border-radius:var(--radius-md);padding:12px">
+            <div style="display:flex;align-items:flex-end;gap:3px;height:26px">
+              <sc-for list="{{ onde }}" as="o" hint-placeholder-count="7">
+                <div style="width:4px;height:26px;background:var(--color-accent-2);transform-origin:bottom;animation:vera-bar 0.8s ease-in-out infinite;animation-delay:{{ o.delay }}"></div>
+              </sc-for>
+            </div>
+            <div style="font-size:13.5px;color:var(--color-accent-2);animation:vera-pulse 1.4s ease-in-out infinite">Ti sto ascoltando… lascia per inviare</div>
+          </div>
+        </sc-if>
+
+        <div style="display:flex;gap:8px;align-items:center">
+          <input value="{{ bozza }}" onChange="{{ onBozza }}" onKeyDown="{{ onInvio }}" placeholder="Scrivile qualcosa" class="input" style="flex:1"></input>
+          <button type="button" onMouseDown="{{ iniziaVocale }}" onMouseUp="{{ fineVocale }}" onMouseLeave="{{ fineVocale }}" onTouchStart="{{ iniziaVocale }}" onTouchEnd="{{ fineVocale }}" class="btn btn-secondary" style="padding:11px 13px;cursor:pointer" title="Tieni premuto per parlare">Parla</button>
+          <button type="button" onClick="{{ invia }}" class="btn btn-primary" style="padding:11px 14px;cursor:pointer">Invia</button>
+        </div>
+      </div>
+    </sc-if>
+
+  </div>
+
+  <div style="display:flex;border-top:1px solid var(--color-divider);padding:0 8px 26px;background:var(--color-bg)">
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+      <button type="button" onClick="{{ t.go }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;padding:12px 2px 6px;cursor:pointer;color:inherit">
+        <sc-if value="{{ t.on }}" hint-placeholder-val="{{ false }}">
+          <span style="height:3px;width:22px;background:var(--color-accent)"></span>
+        </sc-if>
+        <sc-if value="{{ t.off }}" hint-placeholder-val="{{ true }}">
+          <span style="height:3px;width:22px;background:transparent"></span>
+        </sc-if>
+        <sc-if value="{{ t.on }}" hint-placeholder-val="{{ false }}">
+          <span style="font-family:var(--font-heading);font-weight:600;font-size:12px;letter-spacing:0.02em;color:var(--color-accent-800);white-space:nowrap">{{ t.label }}</span>
+        </sc-if>
+        <sc-if value="{{ t.off }}" hint-placeholder-val="{{ true }}">
+          <span style="font-size:12px;letter-spacing:0.02em;color:var(--color-neutral-600);white-space:nowrap">{{ t.label }}</span>
+        </sc-if>
+      </button>
+    </sc-for>
+  </div>
+
+</div>
+</x-import>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:470,&quot;height&quot;:940},&quot;nomeAgente&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Jenny&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Personalità&quot;},&quot;tono&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Adattivo&quot;,&quot;Dolce&quot;,&quot;Ironica&quot;,&quot;Esigente&quot;,&quot;Complice&quot;,&quot;Calma&quot;],&quot;default&quot;:&quot;Adattivo&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Personalità&quot;},&quot;minutiPatto&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5,&quot;min&quot;:3,&quot;max&quot;:15,&quot;step&quot;:1,&quot;unit&quot;:&quot;min&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;streakVisibile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;}}">
+const VOICE = {
+  Dolce: {
+    nome: "dolce",
+    apri: ["Buongiorno. Una cosa alla volta, e va bene anche piano."],
+    meta: ["Hai iniziato, che è la parte difficile."],
+    fine: ["Hai chiuso tutto. Ora riposa senza sensi di colpa."],
+    sblocco: "Non serve fare tutto: serve fare il primo gesto.",
+    patto: "Cinque minuti soli. Se dopo vuoi smettere, smetti davvero.",
+    cura: "Il corpo prima del lavoro: mangia con calma, respira.",
+    fatto: "Bravo. Segnalo, che conta.",
+    crollo: "Va bene anche non farcela. Scegline una piccola e basta.",
+    spinta: "Non devi essere al massimo, devi solo cominciare.",
+    sfogo: "Dimmi tutto, senza filtri. Ti ascolto e non giudico.",
+    diario: "Cosa ti ha fatto bene, anche una cosa minuscola?",
+    chiusura: "Giornata chiusa con cura. Buonanotte."
+  },
+  Ironica: {
+    nome: "ironica",
+    apri: ["Tre cose. Non trenta. Si parte dalla più noiosa."],
+    meta: ["Una fatta. Vedi che sai farlo, quando vuoi."],
+    fine: ["Tutto fatto. Ora chiudi, prima che ti venga voglia di aggiungere roba."],
+    sblocco: "Non stai pensando: stai rimandando con stile.",
+    patto: "Cinque minuti. Se dopo mi dici che smetti, ti credo. Poco, ma ti credo.",
+    cura: "Mangiare in piedi davanti al telefono non è pranzare.",
+    fatto: "Guarda tu. Registrato.",
+    crollo: "Allora abbassiamo l'asticella finché non ci passi sopra camminando.",
+    spinta: "Nessuno ti guarda. Fai la cosa noiosa e finiamola.",
+    sfogo: "Sputa il rospo. Poi vediamo quanto era grosso davvero.",
+    diario: "Due righe. Non un romanzo.",
+    chiusura: "Chiuso. Ora giù il telefono, che tanto non migliora."
+  },
+  Esigente: {
+    nome: "esigente",
+    apri: ["Prima cosa, adesso. Le scuse dopo."],
+    meta: ["Buono. Continua, non festeggiare."],
+    fine: ["Fatto tutto. Domani si alza l'asticella."],
+    sblocco: "Il blocco si rompe muovendosi, non pensandoci.",
+    patto: "Cinque minuti. Poi ne parliamo.",
+    cura: "Mangia bene e stacca dallo schermo: rendi meno da fuso.",
+    fatto: "Registrato. Avanti.",
+    crollo: "Una cosa, la più piccola. Non zero.",
+    spinta: "Non serve motivazione, serve iniziare.",
+    sfogo: "Dimmelo in tre righe, poi torniamo al punto.",
+    diario: "Scrivi cosa hai imparato, non come ti senti.",
+    chiusura: "Chiuso. Domani alle sette si riparte."
+  },
+  Complice: {
+    nome: "complice",
+    apri: ["Ehi. Facciamo un patto: le prime due cose e poi ti lascio in pace."],
+    meta: ["Stai andando. Mi piace."],
+    fine: ["Chiuso tutto. Ora il tempo è tuo."],
+    sblocco: "Ci sono. Da dove partiamo, dalla cosa più facile?",
+    patto: "Cinque minuti insieme. Poi decidi tu.",
+    cura: "Fermati un attimo: mangia, respira, poi si riprende.",
+    fatto: "Perfetto. Segnato.",
+    crollo: "Giornata pesante, ho capito. Scegline una minuscola.",
+    spinta: "Comincia e ti tengo compagnia.",
+    sfogo: "Racconta. Resta tra noi.",
+    diario: "Com'è andata, davvero?",
+    chiusura: "Bene così. A domani."
+  },
+  Calma: {
+    nome: "calma",
+    apri: ["Comincia dalla cosa più semplice. Il resto si sistema."],
+    meta: ["Buon ritmo. Non accelerare."],
+    fine: ["Giornata chiusa. Lascia stare il resto."],
+    sblocco: "Un compito solo, piccolo, adesso.",
+    patto: "Cinque minuti, senza aspettative.",
+    cura: "Mangia lentamente, occhi lontano dallo schermo.",
+    fatto: "Annotato.",
+    crollo: "Riduci l'obiettivo finché diventa possibile.",
+    spinta: "Il primo gesto conta più dell'intenzione.",
+    sfogo: "Dillo con parole tue, senza fretta.",
+    diario: "Una cosa andata bene, una da lasciare andare.",
+    chiusura: "Giornata chiusa. Spalle giù."
+  }
+};
+
+const MOODS = [
+  { k: "palla", label: "In palla", tono: "Esigente" },
+  { k: "ok", label: "Ok", tono: "Ironica" },
+  { k: "piatto", label: "Piatto", tono: "Complice" },
+  { k: "stanco", label: "Stanco", tono: "Calma" },
+  { k: "terra", label: "A terra", tono: "Dolce" }
+];
+
+const PIANI = {
+  Iniziare: ["Telefono in un'altra stanza, adesso.", "Apri solo la cosa da fare, senza farla.", "Scrivi o fai la prima riga, anche sbagliata."],
+  Chiamate: ["Scrivi i tre nomi su un foglio.", "Parti dalla chiamata più facile, per scaldarti.", "Due righe di apertura pronte, non un discorso."],
+  Campo: ["Scarpe, acqua, cappello: vestiti per andare.", "Fai solo il primo pezzo, poi ti guardi intorno.", "Dieci minuti di lavoro e poi decidi se continuare."],
+  Burocrazia: ["Metti tutti i documenti in un'unica cartella.", "Compila solo i campi che sai a memoria.", "Segna cosa manca e a chi lo devi chiedere."]
+};
+
+const VOCALI = [
+  "Non riesco a partire, sto girando intorno alla scrivania.",
+  "Devo fare tre chiamate e le sto rimandando da stamattina.",
+  "Sono stanco, ho lavorato fuori tutto il giorno.",
+  "Ho la pratica da consegnare e non la apro nemmeno."
+];
+
+const OGGI_IDX = (new Date().getDay() + 6) % 7;
+const GIORNI = ["lun", "mar", "mer", "gio", "ven", "sab", "dom"];
+const dataDelGiorno = (i) => {
+  const d = new Date();
+  d.setDate(d.getDate() - OGGI_IDX + i);
+  return d;
+};
+
+class Component extends DCLogic {
+  state = {
+    tab: "oggi",
+    giornoSel: OGGI_IDX,
+    editId: null,
+    campoOra: "",
+    campoTxt: "",
+    nuovoOra: "09:00",
+    nuovoTxt: "",
+    nuovoMemo: "",
+    prossimoId: 100,
+    impegni: [
+      { id: 1, g: OGGI_IDX, ora: "08:30", txt: "Un'ora in campo, prima del caldo", fatto: false },
+      { id: 2, g: OGGI_IDX, ora: "11:00", txt: "Chiamata al fornitore del concime", fatto: false },
+      { id: 3, g: OGGI_IDX, ora: "16:00", txt: "CAA: portare i documenti del fascicolo", fatto: false },
+      { id: 4, g: (OGGI_IDX + 1) % 7, ora: "09:00", txt: "Chiudere la pratica IMU", fatto: false },
+      { id: 5, g: (OGGI_IDX + 2) % 7, ora: "18:30", txt: "Mezz'ora per te, senza schermo", fatto: false }
+    ],
+    memo: [
+      { id: 11, txt: "Chiedere il preventivo delle cassette", ricorda: true },
+      { id: 12, txt: "Targa del rimorchio per il CAA", ricorda: false },
+      { id: 13, txt: "Guanti nuovi", ricorda: false }
+    ],
+    tasks: [
+      { id: 1, txt: "Aprire la pratica che rimando da martedì", tag: "Burocrazia · 20 min", done: false },
+      { id: 2, txt: "Tre chiamate: due clienti e il fornitore", tag: "Contatti · 15 min", done: false },
+      { id: 3, txt: "Un'ora in campo prima che venga caldo", tag: "Lavoro fisico · mattina", done: false }
+    ],
+    mood: null,
+    categoria: "Iniziare",
+    passiFatti: {},
+    left: null,
+    running: false,
+    respiro: false,
+    pause: 1,
+    abitudini: [
+      { k: "cibo", label: "Mangiare seduto a un tavolo", nota: "Non in piedi, non davanti al telefono", done: false },
+      { k: "respiro", label: "Tre minuti di respiro", nota: "Prima di ripartire", done: false },
+      { k: "aspetto", label: "Curare l'aspetto prima di uscire", nota: "Cinque minuti per te", done: true },
+      { k: "sfogo", label: "Dire come sto a qualcuno", nota: "A Vera o a una persona vera", done: false },
+      { k: "hobby", label: "Mezz'ora per te, senza schermo", nota: "La parte che salti sempre", done: false }
+    ],
+    diario: "",
+    giornataChiusa: false,
+    bozza: "",
+    registrando: false,
+    messaggi: [{ chi: "vera", txt: "Sono qui. Dimmi dov'è che ti sei fermato e lo rendiamo piccolo." }],
+    giro: 0
+  };
+
+  avatarRef = React.createRef();
+
+  dipingiAvatar() {
+    const el = this.avatarRef.current;
+    if (el) el.style.backgroundImage = this.state.avatar ? "url(" + this.state.avatar + ")" : "none";
+  }
+  componentDidUpdate() { this.dipingiAvatar(); }
+
+  componentDidMount() {
+    this.dipingiAvatar();
+    try {
+      const salvato = localStorage.getItem("jenny.avatar");
+      if (salvato) this.setState({ avatar: salvato });
+    } catch (e) { /* storage non disponibile */ }
+    this.t = setInterval(() => {
+      if (!this.state.running) return;
+      const l = this.rimasto() - 1;
+      if (l <= 0) {
+        this.setState({ left: 0, running: false });
+        this.diVera("Tempo. Se stai lavorando, continua; se no, hai fatto comunque più di zero.");
+      } else this.setState({ left: l });
+    }, 1000);
+  }
+  componentWillUnmount() { clearInterval(this.t); clearTimeout(this.vt); }
+
+  tonoAttivo() {
+    const p = this.props.tono || "Adattivo";
+    if (p !== "Adattivo") return p;
+    const m = MOODS.filter(x => x.k === this.state.mood)[0];
+    if (m) return m.tono;
+    const fatti = this.state.tasks.filter(t => t.done).length;
+    return fatti >= this.state.tasks.length ? "Complice" : "Ironica";
+  }
+  voce() { return VOICE[this.tonoAttivo()] || VOICE.Ironica; }
+  durata() { return (this.props.minutiPatto || 5) * 60; }
+  rimasto() { return this.state.left === null ? this.durata() : this.state.left; }
+  nomeAgente() { return this.props.nomeAgente || "Jenny"; }
+  parla(ms) {
+    clearTimeout(this.vt);
+    this.setState({ vocePlay: true });
+    this.vt = setTimeout(() => this.setState({ vocePlay: false }), ms || 2800);
+  }
+  caricaAvatar(file) {
+    if (!file) return;
+    const r = new FileReader();
+    r.onload = () => {
+      const src = String(r.result);
+      this.setState({ avatar: src });
+      try { localStorage.setItem("jenny.avatar", src); } catch (e) { /* troppo grande o bloccato */ }
+      this.parla(2200);
+    };
+    r.readAsDataURL(file);
+  }
+  aggiungi() {
+    const t = (this.state.nuovoTxt || "").trim();
+    if (!t) return;
+    this.setState(s => ({
+      impegni: s.impegni.concat([{ id: s.prossimoId, g: s.giornoSel, ora: s.nuovoOra || "09:00", txt: t, fatto: false }]),
+      prossimoId: s.prossimoId + 1,
+      nuovoTxt: ""
+    }));
+    this.parla(2000);
+  }
+  aggiungiMemoOra() {
+    const t = (this.state.nuovoMemo || "").trim();
+    if (!t) return;
+    this.setState(s => ({
+      memo: s.memo.concat([{ id: s.prossimoId, txt: t, ricorda: true }]),
+      prossimoId: s.prossimoId + 1,
+      nuovoMemo: ""
+    }));
+    this.parla(2000);
+  }
+  diVera(txt) {
+    this.setState(s => ({ messaggi: s.messaggi.concat([{ chi: "vera", txt }]) }));
+    this.parla(3200);
+  }
+
+  manda(txt, etichetta) {
+    if (!txt || !txt.trim()) return;
+    const v = this.voce();
+    const t = txt.trim().toLowerCase();
+    let r = v.spinta;
+    if (t.indexOf("fatto") > -1 || t.indexOf("finito") > -1) r = v.fatto;
+    else if (t.indexOf("non ce la faccio") > -1 || t.indexOf("mollo") > -1 || t.indexOf("stanc") > -1) r = v.crollo;
+    else if (t.indexOf("mangi") > -1 || t.indexOf("dorm") > -1 || t.indexOf("pausa") > -1) r = v.cura;
+    else if (t.indexOf("blocc") > -1 || t.indexOf("rimand") > -1 || t.indexOf("inizi") > -1 || t.indexOf("riesc") > -1) r = v.patto;
+    else if (t.indexOf("sfog") > -1 || t.indexOf("basta") > -1) r = v.sfogo;
+    this.setState(s => ({
+      bozza: "",
+      messaggi: s.messaggi.concat([{ chi: etichetta || "io", txt: txt.trim() }, { chi: "vera", txt: r }])
+    }));
+    this.parla(3200);
+  }
+
+  renderVals() {
+    const s = this.state;
+    const v = this.voce();
+    const fatti = s.tasks.filter(t => t.done).length;
+    const rim = this.rimasto();
+    const mm = String(Math.floor(rim / 60)).padStart(2, "0");
+    const ss = String(rim % 60).padStart(2, "0");
+    const ora = new Date().getHours();
+    const piano = PIANI[s.categoria] || PIANI.Iniziare;
+    const onde = [0, 1, 2, 3, 4, 5, 6].map(i => ({ delay: (i * 0.11).toFixed(2) + "s" }));
+
+    return {
+      nomeMaiuscolo: this.nomeAgente().toUpperCase(),
+      nomeAgentePiano: this.nomeAgente(),
+      statoVoce: s.vocePlay ? "parla" : "in ascolto",
+      haAvatar: !!s.avatar,
+      senzaAvatar: !s.avatar,
+      avatarRef: this.avatarRef,
+      onFile: e => this.caricaAvatar(e.target.files && e.target.files[0]),
+      togliAvatar: () => {
+        this.setState({ avatar: null });
+        try { localStorage.removeItem("jenny.avatar"); } catch (err) { /* nulla */ }
+      },
+      vocePillola: "Voce di adesso: " + v.nome,
+      dataOggi: new Date().toLocaleDateString("it-IT", { weekday: "short", day: "numeric", month: "short" }),
+      streakOn: this.props.streakVisibile !== false,
+      streakLabel: "14 giorni di fila",
+
+      isOggi: s.tab === "oggi", isAgenda: s.tab === "agenda", isSblocca: s.tab === "sblocca", isCura: s.tab === "cura", isChat: s.tab === "chat",
+      tabs: [["oggi", "Oggi"], ["agenda", "Agenda"], ["sblocca", "Sblocca"], ["cura", "Cura"], ["chat", this.nomeAgente()]].map(([k, label]) => ({
+        label, on: s.tab === k, off: s.tab !== k, go: () => this.setState({ tab: k })
+      })),
+
+      momentoLabel: ora < 12 ? "Prima mattina" : ora < 18 ? "Pomeriggio" : "Fine giornata",
+      headline: fatti === 0 ? v.apri[0] : fatti >= s.tasks.length ? v.fine[0] : v.meta[0],
+      voceAttiva: s.vocePlay === true,
+      voceBtn: s.vocePlay ? "Sta parlando…" : "Ascolta la sua voce",
+      onde,
+      toggleVoce: () => {
+        clearTimeout(this.vt);
+        if (s.vocePlay) return this.setState({ vocePlay: false });
+        this.setState({ vocePlay: true });
+        this.vt = setTimeout(() => this.setState({ vocePlay: false }), 4200);
+      },
+
+      taskCount: fatti + " di " + s.tasks.length,
+      tasks: s.tasks.map(t => ({
+        txt: t.txt, tag: t.tag, done: t.done, open: !t.done,
+        toggle: () => this.setState(st => ({
+          giro: st.giro + 1,
+          tasks: st.tasks.map(x => x.id === t.id ? Object.assign({}, x, { done: !x.done }) : x)
+        }))
+      })),
+      moods: MOODS.map(m => ({
+        label: m.label, on: s.mood === m.k, off: s.mood !== m.k,
+        pick: () => this.setState({ mood: m.k })
+      })),
+      vaiSblocca: () => this.setState({ tab: "sblocca" }),
+      vaiSfogo: () => this.setState(st => ({
+        tab: "chat",
+        messaggi: st.messaggi.concat([{ chi: "io", txt: "Ho bisogno di sfogarmi." }, { chi: "vera", txt: v.sfogo }])
+      })),
+
+      vaiAgenda: () => this.setState({ tab: "agenda", giornoSel: OGGI_IDX }),
+      prossimo: (() => {
+        const p = s.impegni.filter(i => i.g === OGGI_IDX && !i.fatto).sort((a, b) => a.ora < b.ora ? -1 : 1)[0];
+        return p ? p.ora + " · " + p.txt : "Oggi non hai impegni fissati.";
+      })(),
+
+      agendaTitolo: (() => {
+        const l = s.impegni.filter(i => i.g === s.giornoSel).sort((a, b) => a.ora < b.ora ? -1 : 1);
+        if (!l.length) return "Giornata libera. Se vuoi ci mettiamo una cosa sola.";
+        return l.length === 1
+          ? "Un impegno, alle " + l[0].ora + ". Te lo ricordo io."
+          : l.length + " impegni, il primo alle " + l[0].ora + ". Il resto lo tengo a mente io.";
+      })(),
+      settimana: GIORNI.map((label, i) => {
+        const n = s.impegni.filter(x => x.g === i).length;
+        return {
+          label, num: dataDelGiorno(i).getDate(),
+          punti: n ? "•".repeat(Math.min(n, 3)) : " ",
+          on: s.giornoSel === i, off: s.giornoSel !== i,
+          go: () => this.setState({ giornoSel: i, editId: null })
+        };
+      }),
+      giornoVuoto: s.impegni.filter(i => i.g === s.giornoSel).length === 0,
+      impegni: s.impegni.filter(i => i.g === s.giornoSel).sort((a, b) => a.ora < b.ora ? -1 : 1).map(i => ({
+        ora: i.ora, txt: i.txt, fatto: i.fatto, aperto: !i.fatto,
+        inModifica: s.editId === i.id, vista: s.editId !== i.id,
+        toggle: () => this.setState(st => ({
+          impegni: st.impegni.map(x => x.id === i.id ? Object.assign({}, x, { fatto: !x.fatto }) : x)
+        })),
+        modifica: () => this.setState({ editId: i.id, campoOra: i.ora, campoTxt: i.txt }),
+        elimina: () => this.setState(st => ({ impegni: st.impegni.filter(x => x.id !== i.id), editId: null }))
+      })),
+      campoOra: s.campoOra,
+      campoTxt: s.campoTxt,
+      onCampoOra: e => this.setState({ campoOra: e.target.value }),
+      onCampoTxt: e => this.setState({ campoTxt: e.target.value }),
+      salvaModifica: () => this.setState(st => ({
+        editId: null,
+        impegni: st.impegni.map(x => x.id === st.editId
+          ? Object.assign({}, x, { ora: st.campoOra || x.ora, txt: (st.campoTxt || "").trim() || x.txt })
+          : x)
+      })),
+      annullaModifica: () => this.setState({ editId: null }),
+      nuovoOra: s.nuovoOra,
+      nuovoTxt: s.nuovoTxt,
+      onNuovoOra: e => this.setState({ nuovoOra: e.target.value }),
+      onNuovoTxt: e => this.setState({ nuovoTxt: e.target.value }),
+      onNuovoInvio: e => { if (e.key === "Enter") this.aggiungi(); },
+      aggiungiImpegno: () => this.aggiungi(),
+
+      memoCount: s.memo.length + (s.memo.length === 1 ? " memo" : " memo"),
+      memo: s.memo.map(m => ({
+        txt: m.txt,
+        statoRicorda: m.ricorda ? "Me lo ricorda" : "Ricordamelo",
+        toggleRicorda: () => this.setState(st => ({
+          memo: st.memo.map(x => x.id === m.id ? Object.assign({}, x, { ricorda: !x.ricorda }) : x)
+        })),
+        elimina: () => this.setState(st => ({ memo: st.memo.filter(x => x.id !== m.id) }))
+      })),
+      nuovoMemo: s.nuovoMemo,
+      onNuovoMemo: e => this.setState({ nuovoMemo: e.target.value }),
+      onMemoInvio: e => { if (e.key === "Enter") this.aggiungiMemoOra(); },
+      aggiungiMemo: () => this.aggiungiMemoOra(),
+      memoNota: (v.nome === "dolce" || v.nome === "calma")
+        ? "Quello che scrivi qui non lo perdi: te lo ricordo io."
+        : "Quello che scrivi qui non lo perdo. Te lo ributto addosso al momento giusto.",
+
+      sbloccaTitolo: v.sblocco,
+      sbloccaLinea: "Scegli dove sei impantanato: ti do tre passi e cinque minuti.",
+      categorie: ["Iniziare", "Chiamate", "Campo", "Burocrazia"].map(c => ({
+        label: c, on: s.categoria === c, off: s.categoria !== c,
+        pick: () => this.setState({ categoria: c, passiFatti: {} })
+      })),
+      passi: piano.map((txt, i) => {
+        const key = s.categoria + i;
+        const done = !!s.passiFatti[key];
+        return {
+          n: String(i + 1), txt, done, open: !done,
+          toggle: () => this.setState(st => {
+            const p = Object.assign({}, st.passiFatti); p[key] = !p[key];
+            return { passiFatti: p };
+          })
+        };
+      }),
+      minutiPatto: this.props.minutiPatto || 5,
+      timerLabel: mm + ":" + ss,
+      timerPct: Math.round((1 - rim / this.durata()) * 100) + "%",
+      timerBtn: s.running ? "Pausa" : "Vai",
+      toggleTimer: () => this.setState({ running: !s.running, left: rim }),
+      resetTimer: () => this.setState({ running: false, left: this.durata() }),
+
+      respiroOn: s.respiro, respiroOff: !s.respiro,
+      respiroBtn: s.respiro ? "Basta" : "Guidami",
+      respiroTesto: s.respiro
+        ? "Segui il cerchio: inspira mentre cresce, trattieni, espira lentamente mentre si chiude."
+        : "Quando la testa corre troppo: quattro dentro, sette fermo, otto fuori. Tre giri bastano.",
+      toggleRespiro: () => this.setState({ respiro: !s.respiro }),
+
+      curaTitolo: v.cura,
+      pauseLabel: s.pause + " di 4 pause",
+      pause: [0, 1, 2, 3].map(i => ({
+        on: i < s.pause, off: i >= s.pause,
+        tap: () => this.setState({ pause: i + 1 === s.pause ? i : i + 1 })
+      })),
+      abitudini: s.abitudini.map(a => ({
+        label: a.label, nota: a.nota, done: a.done, open: !a.done,
+        toggle: () => this.setState(st => ({
+          abitudini: st.abitudini.map(x => x.k === a.k ? Object.assign({}, x, { done: !x.done }) : x)
+        }))
+      })),
+      diario: s.diario,
+      onDiario: e => this.setState({ diario: e.target.value, giornataChiusa: false }),
+      diarioDomanda: v.diario,
+      giornataChiusa: s.giornataChiusa,
+      chiusuraNota: v.chiusura,
+      chiudiGiornata: () => this.setState({ giornataChiusa: true }),
+
+      messaggi: s.messaggi.map(m => ({
+        txt: m.txt, vera: m.chi === "vera", io: m.chi !== "vera",
+        chi: m.chi === "vera" ? this.nomeAgente() : m.chi === "vocale" ? "Io · vocale" : "Io"
+      })),
+      rapide: [
+        ["Fatto una cosa", v.fatto],
+        ["Non ce la faccio", v.crollo],
+        ["Sono bloccato", v.patto],
+        ["Motivami", v.spinta]
+      ].map(([label, r]) => ({
+        label,
+        tap: () => this.setState(st => ({ messaggi: st.messaggi.concat([{ chi: "io", txt: label }, { chi: "vera", txt: r }]) }))
+      })),
+      registrando: s.registrando,
+      iniziaVocale: () => this.setState({ registrando: true }),
+      fineVocale: () => {
+        if (!s.registrando) return;
+        this.setState({ registrando: false });
+        this.manda(VOCALI[s.messaggi.length % VOCALI.length], "vocale");
+      },
+      bozza: s.bozza,
+      onBozza: e => this.setState({ bozza: e.target.value }),
+      onInvio: e => { if (e.key === "Enter") this.manda(e.target.value); },
+      invia: () => this.manda(s.bozza)
+    };
+  }
+}
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+</script>
+</body>
+</html>
