@@ -1,15 +1,15 @@
-# Jenny — motivatore per il lavoro e la cura di sé
+# Pericle — motivatore per il lavoro e la cura di sé
 
 App web mobile in italiano: un assistente che ti spinge a partire, ti tiene l'agenda e i memo,
 e ti ricorda di mangiare, respirare e staccare. Nessun account, nessun server: tutto gira nel telefono.
 
 ## Cosa fa
 
-- **Oggi** — segni come stai adesso e il tono di Jenny cambia di conseguenza (dolce, ironica, esigente, complice, calma); avatar scelto da te, prossimo impegno, le tre cose della giornata.
+- **Oggi** — segni come stai adesso e il tono di Pericle cambia di conseguenza (dolce, ironica, esigente, complice, calma); avatar scelto da te, prossimo impegno, le tre cose della giornata.
 - **Agenda** — settimana modificabile: aggiungi, cambia ora e testo, spunta, elimina. Sotto, i **memo** con "ricordamelo".
 - **Sblocca** — quattro tipi di blocco (iniziare, chiamate, campo, burocrazia), tre passi concreti, il patto dei 5 minuti e il respiro guidato 4-7-8.
 - **Cura** — pause dallo schermo, abitudini, chiusura di giornata con diario.
-- **Jenny** — chat con risposte rapide e messaggio vocale (simulato in questa versione).
+- **Pericle** — chat con risposte rapide e messaggio vocale (simulato in questa versione).
 
 ## Come si prova in locale
 

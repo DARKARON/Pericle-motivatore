@@ -1,5 +1,5 @@
-/* Jenny — cache di base: l'app si apre anche senza rete */
-const CACHE = 'jenny-v1';
+/* Pericle — cache di base: l'app si apre anche senza rete */
+const CACHE = 'pericle-v1';
 const ASSETS = [
   './', './index.html', './manifest.webmanifest',
   './support.js', './ios-frame.jsx', './image-slot.js',
