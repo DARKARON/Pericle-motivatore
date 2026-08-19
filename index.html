@@ -99,8 +99,21 @@
     <sc-if value="{{ isOggi }}" hint-placeholder-val="{{ true }}">
       <div style="display:flex;flex-direction:column;gap:24px">
 
-        <sc-if value="{{ installabile }}" hint-placeholder-val="{{ true }}">
-          <button type="button" onClick="{{ installa }}" class="btn btn-primary btn-block" style="justify-content:center;padding:13px;font-size:15px;cursor:pointer;margin-top:4px">Installa l'app sul telefono</button>
+        <sc-if value="{{ mostraInstalla }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;flex-direction:column;gap:9px;margin-top:4px">
+            <button type="button" onClick="{{ installa }}" class="btn btn-primary btn-block" style="justify-content:center;padding:13px;font-size:15px;cursor:pointer">Installa l'app sul telefono</button>
+            <sc-if value="{{ istruzioniInstalla }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:8px;border:1px solid var(--color-divider);border-radius:24px;padding:14px 16px">
+                <div style="font-family:var(--font-heading);font-weight:600;font-size:15px">Come installarla adesso</div>
+                <ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:14px;line-height:1.5;color:var(--color-neutral-700)">
+                  <li>Apri questa pagina in <strong>Chrome</strong> sul telefono.</li>
+                  <li>Tocca il menu <strong>⋮</strong> in alto a destra.</li>
+                  <li>Scegli <strong>Aggiungi a schermata Home</strong> e conferma <strong>Installa</strong>.</li>
+                </ol>
+                <button type="button" onClick="{{ chiudiIstruzioni }}" class="btn btn-secondary" style="align-self:flex-start;padding:9px 14px;font-size:13.5px;cursor:pointer">Ho capito</button>
+              </div>
+            </sc-if>
+          </div>
         </sc-if>
 
         <div style="display:flex;flex-direction:column;gap:12px;padding-top:4px">
@@ -1435,9 +1448,12 @@ class Component extends DCLogic {
       installabile: s.installabile && !s.installata,
       nonInstallabile: !(s.installabile && !s.installata),
       installata: s.installata,
+      mostraInstalla: !s.installata,
+      istruzioniInstalla: !!s.istruzioniInstalla,
+      chiudiIstruzioni: () => this.setState({ istruzioniInstalla: false }),
       installa: () => {
         const p = this.promptInstall;
-        if (!p) return;
+        if (!p) return this.setState({ istruzioniInstalla: true });
         p.prompt();
         p.userChoice && p.userChoice.then(() => this.setState({ installabile: false }));
       },
