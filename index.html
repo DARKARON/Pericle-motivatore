@@ -11,6 +11,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
+<script src="chat-config.js"></script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -97,6 +98,10 @@
 
     <sc-if value="{{ isOggi }}" hint-placeholder-val="{{ true }}">
       <div style="display:flex;flex-direction:column;gap:24px">
+
+        <sc-if value="{{ installabile }}" hint-placeholder-val="{{ true }}">
+          <button type="button" onClick="{{ installa }}" class="btn btn-primary btn-block" style="justify-content:center;padding:13px;font-size:15px;cursor:pointer;margin-top:4px">Installa l'app sul telefono</button>
+        </sc-if>
 
         <div style="display:flex;flex-direction:column;gap:12px;padding-top:4px">
           <div style="display:flex;flex-direction:column;gap:9px;min-width:0">
@@ -1288,7 +1293,10 @@ class Component extends DCLogic {
   }
 
   async chiediAClaude(testoUtente) {
-    if (!window.claude || !window.claude.complete) throw new Error("claude non disponibile");
+    const endpoint = (window.PERICLE_CHAT_ENDPOINT || "").trim();
+    if (!window.claude || !window.claude.complete) {
+      if (!endpoint) throw new Error("nessun motore di chat disponibile");
+    }
     const s = this.state;
     const daFare = s.tasks.filter(t => !t.done).map(t => t.txt);
     const prossimi = s.impegni.filter(i => i.g === OGGI_IDX && !i.fatto)
@@ -1309,7 +1317,19 @@ class Component extends DCLogic {
     const storia = s.messaggi.slice(-6).map(m => ({ role: m.chi === "vera" ? "assistant" : "user", content: m.txt }));
     storia.push({ role: "user", content: testoUtente });
 
-    const risposta = await window.claude.complete({ system: sistema, messages: storia, max_tokens: 200 });
+    let risposta;
+    if (window.claude && window.claude.complete) {
+      risposta = await window.claude.complete({ system: sistema, messages: storia, max_tokens: 200 });
+    } else {
+      const r = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ model: "claude-haiku-4-5", max_tokens: 200, system: sistema, messages: storia })
+      });
+      if (!r.ok) throw new Error("endpoint non raggiungibile");
+      const dati = await r.json();
+      risposta = dati.reply || (dati.content && dati.content[0] && dati.content[0].text) || "";
+    }
     const pulita = (risposta || "").trim();
     if (!pulita) throw new Error("risposta vuota");
     return pulita;

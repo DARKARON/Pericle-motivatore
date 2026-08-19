@@ -1,8 +1,8 @@
 /* Pericle — cache di base: l'app si apre anche senza rete */
-const CACHE = 'pericle-v1';
+const CACHE = 'pericle-v2';
 const ASSETS = [
   './', './index.html', './manifest.webmanifest',
-  './support.js', './ios-frame.jsx', './image-slot.js',
+  './support.js', './chat-config.js', './ios-frame.jsx', './image-slot.js',
   './_ds/broadsheet-df622a89-8321-4fb9-940b-ea77d59c800c/styles.css',
   './_ds/broadsheet-df622a89-8321-4fb9-940b-ea77d59c800c/_ds_bundle.js',
   './icons/icon-192.png', './icons/icon-512.png'

@@ -29,6 +29,14 @@ Settings → Pages → Branch: `main`, cartella `/ (root)` → Save.
 Dopo un minuto l'app è su `https://<utente>.github.io/<repo>/`.
 Aprila dal telefono e usa "Aggiungi alla schermata Home": si installa come app, a schermo intero.
 
+## Chat con Claude Haiku
+
+Fuori dallo strumento serve un proxy che custodisca la chiave API (mai nel sito):
+
+1. Pubblica `proxy-example.js` come Cloudflare Worker e imposta la variabile `ANTHROPIC_API_KEY`.
+2. Incolla l'indirizzo del Worker in `chat-config.js` (`window.PERICLE_CHAT_ENDPOINT`).
+3. Senza indirizzo la chat funziona comunque, con le risposte pronte per categoria.
+
 ## Voci su Android
 
 L'app usa le voci di sistema. Per averle buone:
