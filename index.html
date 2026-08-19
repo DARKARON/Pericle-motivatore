@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="theme-color" content="#191817">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#082049">
+<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Pericle — motivatore</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="./support.js"></script>
 </head>
 <body>
@@ -22,46 +23,62 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
 <script src="./image-slot.js"></script>
 <style>
-  /* Edizione notturna: gli stessi inchiostri di Broadsheet, stampati su carta scura */
+  /* Edizione notte e ambra: fondo blu profondo, inchiostro arancio */
   :root {
-    --color-bg: #191817;
-    --color-surface: #232120;
-    --color-text: #f4f1ec;
-    --color-divider: color-mix(in srgb, #f4f1ec 20%, transparent);
-    --color-neutral-100: #262422;
-    --color-neutral-200: #322f2c;
-    --color-neutral-300: #423e3a;
-    --color-neutral-400: #6b6560;
-    --color-neutral-500: #98928b;
-    --color-neutral-600: #b0a9a1;
-    --color-neutral-700: #cdc6be;
-    --color-neutral-800: #e4ded7;
-    --color-neutral-900: #f4f1ec;
-    --color-accent: #4cc3e8;
-    --color-accent-100: #14313c;
-    --color-accent-200: #1b4351;
-    --color-accent-300: #266072;
-    --color-accent-400: #3a90ab;
-    --color-accent-500: #4cc3e8;
-    --color-accent-600: #6ed2f0;
-    --color-accent-700: #8fdef5;
-    --color-accent-800: #b2e9fa;
-    --color-accent-900: #d9f5fd;
-    --color-accent-2: #ff5d9e;
-    --color-accent-2-800: #ffc0d8;
+    --color-bg: #082049;
+    --color-surface: #0d2a5a;
+    --color-text: #f28622;
+    --color-divider: color-mix(in srgb, #f28622 28%, transparent);
+    --color-neutral-100: #0d2a5a;
+    --color-neutral-200: #143a70;
+    --color-neutral-300: #1c4a86;
+    --color-neutral-400: #7a5a3a;
+    --color-neutral-500: #c07a3a;
+    --color-neutral-600: #e79447;
+    --color-neutral-700: #f5a45c;
+    --color-neutral-800: #f9bd85;
+    --color-neutral-900: #fdd9b4;
+    --color-accent: #f28622;
+    --color-accent-100: #14315e;
+    --color-accent-200: #1d4478;
+    --color-accent-300: #8a5526;
+    --color-accent-400: #c96d1f;
+    --color-accent-500: #f28622;
+    --color-accent-600: #f79a44;
+    --color-accent-700: #fbb069;
+    --color-accent-800: #fdc791;
+    --color-accent-900: #ffe0bd;
+    --color-accent-2: #ffc857;
+    --color-accent-2-800: #ffe3a3;
   }
-  body { margin: 0; background: #0c0b0b; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+  html, body { margin: 0; height: 100%; background: #051534; overflow: hidden; }
   a { color: var(--color-accent-700); text-decoration: none; }
   a:hover { color: var(--color-accent-800); text-decoration: underline; }
   input, textarea, button { font: inherit; }
-  ::-webkit-scrollbar { width: 0; }
+  ::-webkit-scrollbar { width: 0; height: 0; }
   @keyframes vera-bar { 0%,100% { transform: scaleY(0.25) } 50% { transform: scaleY(1) } }
   @keyframes vera-respiro { 0% { transform: scale(0.62); opacity: 0.55 } 21% { transform: scale(1); opacity: 1 } 58% { transform: scale(1); opacity: 1 } 100% { transform: scale(0.62); opacity: 0.55 } }
   @keyframes vera-pulse { 0%,100% { opacity: 1 } 50% { opacity: 0.35 } }
+  /* pulsanti arrotondati */
+  button, .btn, label.halftone, select, input, textarea { border-radius: 999px !important; }
+  textarea, select[multiple] { border-radius: 18px !important; }
+  label.halftone { border-radius: 24px !important; }
+  /* ogni pulsante diventa giallo al tocco */
+  button:active, label:active { background: #eeff00 !important; border-color: #eeff00 !important; color: #191817 !important; }
+  button:active span, button:active div, label:active span { color: #191817 !important; }
+  /* leggibilità: tutto in grassetto, testi piccoli ingranditi */
+  * { font-weight: 700 !important; }
+  [style*="font-size:9.5px"], [style*="font-size: 9.5px"],
+  [style*="font-size:10px"], [style*="font-size: 10px"],
+  [style*="font-size:10.5px"], [style*="font-size: 10.5px"],
+  [style*="font-size:11px"], [style*="font-size: 11px"],
+  [style*="font-size:12px"], [style*="font-size: 12px"],
+  [style*="font-size:12.5px"], [style*="font-size: 12.5px"],
+  [style*="font-size:13px"], [style*="font-size: 13px"],
+  [style*="font-size:13.5px"], [style*="font-size: 13.5px"] { font-size: 14px !important; }
 </style>
 </helmet>
-<x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" dark="{{ true }}" hint-size="402px,874px">
-<div style="height:100%;display:flex;flex-direction:column;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);font-size:15px;padding-top:54px;overflow:hidden">
+<div style="height:100dvh;width:min(100%,412px);margin-inline:auto;display:flex;flex-direction:column;background:var(--color-bg);color:var(--color-text);font-family:var(--font-body);font-size:15px;padding-top:16px;overflow:hidden">
 
   <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:10px;padding:0 20px 10px">
     <div style="display:flex;flex-direction:column;gap:2px">
@@ -76,28 +93,26 @@
     </div>
   </div>
 
-  <div style="flex:1;overflow-y:auto;padding:0 20px 20px">
+  <div style="flex:1;overflow-y:auto;overflow-x:hidden;padding:0 20px 20px">
 
     <sc-if value="{{ isOggi }}" hint-placeholder-val="{{ true }}">
       <div style="display:flex;flex-direction:column;gap:24px">
 
-        <div style="display:flex;flex-direction:column;gap:11px;padding-top:4px">
-          <div style="font-family:var(--font-heading);font-weight:600;font-size:22px;line-height:1.15">Come stai, adesso?</div>
-          <div style="display:flex;flex-wrap:wrap;gap:7px">
-            <sc-for list="{{ moods }}" as="m" hint-placeholder-count="5">
-              <div>
-                <sc-if value="{{ m.on }}" hint-placeholder-val="{{ false }}">
-                  <button type="button" onClick="{{ m.pick }}" style="border:1px solid var(--color-accent);background:var(--color-accent);color:var(--color-bg);padding:9px 14px;border-radius:var(--radius-md);font-size:14px;cursor:pointer;white-space:nowrap">{{ m.label }}</button>
-                </sc-if>
-                <sc-if value="{{ m.off }}" hint-placeholder-val="{{ true }}">
-                  <button type="button" onClick="{{ m.pick }}" style="border:1px solid var(--color-divider);background:none;color:inherit;padding:9px 14px;border-radius:var(--radius-md);font-size:14px;cursor:pointer;white-space:nowrap" style-hover="border-color:var(--color-accent)">{{ m.label }}</button>
-                </sc-if>
-              </div>
-            </sc-for>
+        <div style="display:flex;flex-direction:column;gap:12px;padding-top:4px">
+          <div style="display:flex;flex-direction:column;gap:9px;min-width:0">
+            <div style="font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-neutral-600)">{{ momentoLabel }}</div>
+            <div style="font-family:var(--font-heading);font-weight:600;font-size:22px;line-height:1.14;text-wrap:pretty">{{ headline }}</div>
+            <button type="button" onClick="{{ toggleVoce }}" class="btn btn-secondary btn-block" style="justify-content:center;gap:9px;padding:13px;font-size:15px;cursor:pointer">
+              {{ voceBtn }}
+              <sc-if value="{{ voceAttiva }}" hint-placeholder-val="{{ false }}">
+                <span style="display:flex;align-items:flex-end;gap:3px;height:16px">
+                  <sc-for list="{{ onde }}" as="o" hint-placeholder-count="7">
+                    <span style="width:3px;height:16px;background:var(--color-accent-2);transform-origin:bottom;animation:vera-bar 0.9s ease-in-out infinite;animation-delay:{{ o.delay }};display:inline-block"></span>
+                  </sc-for>
+                </span>
+              </sc-if>
+            </button>
           </div>
-        </div>
-
-        <div style="display:flex;flex-direction:column;gap:12px">
           <div style="display:flex;flex-direction:column;gap:7px">
             <sc-if value="{{ haAvatar }}" hint-placeholder-val="{{ false }}">
               <figure class="cmyk" style="margin:0;width:100%;position:relative">
@@ -126,19 +141,83 @@
               </sc-if>
             </div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:9px;min-width:0">
-            <div style="font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:var(--color-neutral-600)">{{ momentoLabel }}</div>
-            <div style="font-family:var(--font-heading);font-weight:600;font-size:22px;line-height:1.14;text-wrap:pretty">{{ headline }}</div>
-            <div style="display:flex;align-items:center;gap:9px">
-              <button type="button" onClick="{{ toggleVoce }}" class="btn btn-secondary" style="padding:7px 11px;font-size:12.5px;cursor:pointer;white-space:nowrap">{{ voceBtn }}</button>
-              <sc-if value="{{ voceAttiva }}" hint-placeholder-val="{{ false }}">
-                <div style="display:flex;align-items:flex-end;gap:3px;height:20px">
-                  <sc-for list="{{ onde }}" as="o" hint-placeholder-count="7">
-                    <div style="width:3px;height:20px;background:var(--color-accent-2);transform-origin:bottom;animation:vera-bar 0.9s ease-in-out infinite;animation-delay:{{ o.delay }}"></div>
-                  </sc-for>
-                </div>
-              </sc-if>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <sc-if value="{{ registrandoNota }}" hint-placeholder-val="{{ false }}">
+            <button type="button" onClick="{{ fermaNota }}" class="btn btn-primary btn-block" style="justify-content:center;gap:9px;padding:13px;font-size:15px;cursor:pointer;background:var(--color-accent-2);border-color:var(--color-accent-2)">
+              <span style="width:9px;height:9px;border-radius:2px;background:var(--color-bg);display:inline-block"></span>
+              In ascolto… tocca per fermare
+            </button>
+          </sc-if>
+          <sc-if value="{{ nonRegistrandoNota }}" hint-placeholder-val="{{ true }}">
+            <button type="button" onClick="{{ avviaNota }}" class="btn btn-secondary btn-block" style="justify-content:center;gap:9px;padding:13px;font-size:15px;cursor:pointer">Registra una nota</button>
+          </sc-if>
+          <sc-if value="{{ notaVoceMancante }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:12.5px;color:var(--color-neutral-600)">Il riconoscimento vocale non è disponibile qui: su Chrome per Android funziona.</div>
+          </sc-if>
+          <sc-if value="{{ notaBozza }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:9px;border:1px solid var(--color-divider);border-radius:var(--radius-md);padding:12px">
+              <textarea value="{{ notaTesto }}" onChange="{{ onNotaTesto }}" class="input" style="min-height:64px;resize:none;line-height:1.5"></textarea>
+              <div style="display:flex;gap:8px;align-items:center">
+                <input type="time" value="{{ notaOra }}" onChange="{{ onNotaOra }}" class="input" style="width:112px"></input>
+                <button type="button" onClick="{{ salvaNotaAgenda }}" class="btn btn-primary" style="padding:9px 13px;font-size:13.5px;cursor:pointer">In agenda oggi</button>
+                <button type="button" onClick="{{ salvaNotaMemo }}" class="btn btn-secondary" style="padding:9px 13px;font-size:13.5px;cursor:pointer">Come memo</button>
+              </div>
+              <div style="font-size:12px;color:var(--color-neutral-600)">Resta su Pericle: per finire anche sul tuo Google Calendar vero serve collegarlo a parte.</div>
             </div>
+          </sc-if>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:11px">
+          <div style="font-family:var(--font-heading);font-weight:600;font-size:22px;line-height:1.15">Come stai, adesso?</div>
+          <div style="display:flex;flex-wrap:wrap;gap:7px">
+            <sc-for list="{{ moods }}" as="m" hint-placeholder-count="8">
+              <div>
+                <sc-if value="{{ m.on }}" hint-placeholder-val="{{ false }}">
+                  <button type="button" onClick="{{ m.pick }}" style="border:1px solid #eeff00;background:#eeff00;color:#191817;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background 0.12s,border-color 0.12s">{{ m.label }}</button>
+                </sc-if>
+                <sc-if value="{{ m.off }}" hint-placeholder-val="{{ true }}">
+                  <button type="button" onClick="{{ m.pick }}" style="border:1px solid color-mix(in srgb, var(--color-accent) 45%, transparent);background:color-mix(in srgb, var(--color-accent) 16%, transparent);color:inherit;padding:10px 18px;border-radius:999px;font-size:14px;cursor:pointer;white-space:nowrap;transition:background 0.12s,border-color 0.12s" style-hover="background:color-mix(in srgb, var(--color-accent) 28%, transparent)" style-active="background:#eeff00;border-color:#eeff00;color:#191817">{{ m.label }}</button>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:10px">
+            <div style="font-family:var(--font-heading);font-weight:600;font-size:17px">Cronotabella di self-care</div>
+            <sc-if value="{{ alertOn }}" hint-placeholder-val="{{ false }}">
+              <button type="button" onClick="{{ toggleAlert }}" style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-accent-2);background:none;border:0;cursor:pointer;white-space:nowrap">Allert on</button>
+            </sc-if>
+            <sc-if value="{{ alertOff }}" hint-placeholder-val="{{ true }}">
+              <button type="button" onClick="{{ toggleAlert }}" style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-600);background:none;border:0;cursor:pointer;white-space:nowrap">Attiva allert</button>
+            </sc-if>
+          </div>
+          <sc-if value="{{ alertBloccato }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:12.5px;line-height:1.4;color:var(--color-neutral-600)">Notifiche bloccate: abilitale nelle impostazioni del browser/telefono per questo sito.</div>
+          </sc-if>
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <sc-for list="{{ selfcare }}" as="c" hint-placeholder-count="4">
+              <button type="button" onClick="{{ c.toggle }}" style="display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--color-divider);padding:13px 2px;cursor:pointer;color:inherit" style-hover="background:var(--color-neutral-100)">
+                <sc-if value="{{ c.done }}" hint-placeholder-val="{{ false }}">
+                  <span style="flex:none;width:20px;height:20px;margin-top:1px;border:1px solid #eeff00;background:#eeff00;color:#191817;display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1">✓</span>
+                </sc-if>
+                <sc-if value="{{ c.open }}" hint-placeholder-val="{{ true }}">
+                  <span style="flex:none;width:20px;height:20px;margin-top:1px;border:1px solid var(--color-divider)"></span>
+                </sc-if>
+                <span style="display:flex;flex-direction:column;gap:3px;min-width:0">
+                  <span style="font-family:var(--font-heading);font-weight:600;font-size:13px;letter-spacing:0.04em;color:var(--color-accent-800)">{{ c.ora }}</span>
+                  <sc-if value="{{ c.done }}" hint-placeholder-val="{{ false }}">
+                    <span style="font-size:15.5px;line-height:1.3;color:var(--color-neutral-500);text-decoration:line-through">{{ c.txt }}</span>
+                  </sc-if>
+                  <sc-if value="{{ c.open }}" hint-placeholder-val="{{ true }}">
+                    <span style="font-size:15.5px;line-height:1.3">{{ c.txt }}</span>
+                  </sc-if>
+                </span>
+              </button>
+            </sc-for>
           </div>
         </div>
 
@@ -159,7 +238,7 @@
             <sc-for list="{{ tasks }}" as="t" hint-placeholder-count="3">
               <button type="button" onClick="{{ t.toggle }}" style="display:flex;align-items:flex-start;gap:12px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--color-divider);padding:13px 2px;cursor:pointer;color:inherit" style-hover="background:var(--color-neutral-100)">
                 <sc-if value="{{ t.done }}" hint-placeholder-val="{{ false }}">
-                  <span style="flex:none;width:20px;height:20px;margin-top:1px;border:1px solid var(--color-accent);background:var(--color-accent);color:var(--color-bg);display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1">✓</span>
+                  <span style="flex:none;width:20px;height:20px;margin-top:1px;border:1px solid #eeff00;background:#eeff00;color:#191817;display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1">✓</span>
                 </sc-if>
                 <sc-if value="{{ t.open }}" hint-placeholder-val="{{ true }}">
                   <span style="flex:none;width:20px;height:20px;margin-top:1px;border:1px solid var(--color-divider)"></span>
@@ -196,7 +275,7 @@
           <sc-for list="{{ settimana }}" as="g" hint-placeholder-count="7">
             <div style="flex:1">
               <sc-if value="{{ g.on }}" hint-placeholder-val="{{ false }}">
-                <button type="button" onClick="{{ g.go }}" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid var(--color-accent);background:var(--color-accent);color:var(--color-bg);padding:8px 2px;border-radius:var(--radius-md);cursor:pointer">
+                <button type="button" onClick="{{ g.go }}" style="width:100%;display:flex;flex-direction:column;align-items:center;gap:3px;border:1px solid #eeff00;background:#eeff00;color:#191817;padding:8px 2px;border-radius:var(--radius-md);cursor:pointer">
                   <span style="font-size:10px;letter-spacing:0.08em;text-transform:uppercase">{{ g.label }}</span>
                   <span style="font-family:var(--font-heading);font-weight:600;font-size:16px;line-height:1">{{ g.num }}</span>
                   <span style="font-size:10px">{{ g.punti }}</span>
@@ -220,7 +299,7 @@
                 <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 2px">
                   <button type="button" onClick="{{ i.toggle }}" style="flex:none;width:20px;height:20px;margin-top:2px;background:none;border:0;padding:0;cursor:pointer">
                     <sc-if value="{{ i.fatto }}" hint-placeholder-val="{{ false }}">
-                      <span style="display:flex;width:20px;height:20px;align-items:center;justify-content:center;border:1px solid var(--color-accent);background:var(--color-accent);color:var(--color-bg);font-size:12px;line-height:1">✓</span>
+                      <span style="display:flex;width:20px;height:20px;align-items:center;justify-content:center;border:1px solid #eeff00;background:#eeff00;color:#191817;font-size:12px;line-height:1">✓</span>
                     </sc-if>
                     <sc-if value="{{ i.aperto }}" hint-placeholder-val="{{ true }}">
                       <span style="display:block;width:20px;height:20px;border:1px solid var(--color-divider)"></span>
@@ -298,7 +377,7 @@
           <sc-for list="{{ categorie }}" as="c" hint-placeholder-count="4">
             <div>
               <sc-if value="{{ c.on }}" hint-placeholder-val="{{ false }}">
-                <button type="button" onClick="{{ c.pick }}" style="border:1px solid var(--color-accent-2);background:var(--color-accent-2);color:var(--color-bg);padding:8px 13px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;white-space:nowrap">{{ c.label }}</button>
+                <button type="button" onClick="{{ c.pick }}" style="border:1px solid #eeff00;background:#eeff00;color:#191817;padding:8px 13px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;white-space:nowrap">{{ c.label }}</button>
               </sc-if>
               <sc-if value="{{ c.off }}" hint-placeholder-val="{{ true }}">
                 <button type="button" onClick="{{ c.pick }}" style="border:1px solid var(--color-divider);background:none;color:inherit;padding:8px 13px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;white-space:nowrap" style-hover="border-color:var(--color-accent-2)">{{ c.label }}</button>
@@ -323,12 +402,7 @@
 
         <div style="display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--color-divider);padding-top:18px">
           <div style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Il patto dei {{ minutiPatto }} minuti</div>
-          <div class="cmyk-num" style="font-family:var(--font-heading);font-weight:600;font-size:76px">
-            <span class="paper">{{ timerLabel }}</span>
-            <span class="plate plate-c" aria-hidden="true">{{ timerLabel }}</span>
-            <span class="plate plate-m" aria-hidden="true">{{ timerLabel }}</span>
-            <span class="plate plate-y" aria-hidden="true">{{ timerLabel }}</span>
-          </div>
+          <div style="font-family:var(--font-heading);font-weight:600;font-size:76px;color:#0b3f57">{{ timerLabel }}</div>
           <div style="height:3px;background:var(--color-neutral-200)">
             <div style="height:3px;background:var(--color-accent);width:{{ timerPct }}"></div>
           </div>
@@ -391,7 +465,7 @@
           <sc-for list="{{ abitudini }}" as="a" hint-placeholder-count="5">
             <button type="button" onClick="{{ a.toggle }}" style="display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--color-divider);padding:14px 2px;cursor:pointer;color:inherit" style-hover="background:var(--color-neutral-100)">
               <sc-if value="{{ a.done }}" hint-placeholder-val="{{ false }}">
-                <span style="flex:none;width:20px;height:20px;border:1px solid var(--color-accent-2);background:var(--color-accent-2);color:var(--color-bg);display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1">✓</span>
+                <span style="flex:none;width:20px;height:20px;border:1px solid #eeff00;background:#eeff00;color:#191817;display:flex;align-items:center;justify-content:center;font-size:12px;line-height:1">✓</span>
               </sc-if>
               <sc-if value="{{ a.open }}" hint-placeholder-val="{{ true }}">
                 <span style="flex:none;width:20px;height:20px;border:1px solid var(--color-divider)"></span>
@@ -408,18 +482,36 @@
           <div style="font-family:var(--font-heading);font-weight:600;font-size:17px">Voce</div>
           <div style="display:flex;gap:7px">
             <sc-if value="{{ timbroDonna }}" hint-placeholder-val="{{ true }}">
-              <button type="button" onClick="{{ scegliDonna }}" style="flex:1;border:1px solid var(--color-accent);background:var(--color-accent);color:var(--color-bg);padding:11px 12px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;text-align:left">Donna · calda e bassa</button>
+              <button type="button" onClick="{{ scegliDonna }}" style="flex:1;border:1px solid #eeff00;background:#eeff00;color:#191817;padding:11px 12px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;text-align:left">Donna · calda e bassa</button>
             </sc-if>
             <sc-if value="{{ timbroUomo }}" hint-placeholder-val="{{ false }}">
               <button type="button" onClick="{{ scegliDonna }}" style="flex:1;border:1px solid var(--color-divider);background:none;color:inherit;padding:11px 12px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;text-align:left" style-hover="border-color:var(--color-accent)">Donna · calda e bassa</button>
             </sc-if>
             <sc-if value="{{ timbroUomo }}" hint-placeholder-val="{{ false }}">
-              <button type="button" onClick="{{ scegliUomo }}" style="flex:1;border:1px solid var(--color-accent);background:var(--color-accent);color:var(--color-bg);padding:11px 12px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;text-align:left">Uomo · seria e grave</button>
+              <button type="button" onClick="{{ scegliUomo }}" style="flex:1;border:1px solid #eeff00;background:#eeff00;color:#191817;padding:11px 12px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;text-align:left">Uomo · seria e grave</button>
             </sc-if>
             <sc-if value="{{ timbroDonna }}" hint-placeholder-val="{{ true }}">
               <button type="button" onClick="{{ scegliUomo }}" style="flex:1;border:1px solid var(--color-divider);background:none;color:inherit;padding:11px 12px;border-radius:var(--radius-md);font-size:13.5px;cursor:pointer;text-align:left" style-hover="border-color:var(--color-accent)">Uomo · seria e grave</button>
             </sc-if>
           </div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;justify-content:space-between;font-size:13px">
+                <span>Velocità</span>
+                <span style="color:var(--color-neutral-600)">{{ velocitaLabel }}</span>
+              </div>
+              <input type="range" min="0.6" max="1.3" step="0.05" value="{{ velocita }}" onChange="{{ onVelocita }}" style="width:100%;accent-color:var(--color-accent)"></input>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <div style="display:flex;justify-content:space-between;font-size:13px">
+                <span>Tono</span>
+                <span style="color:var(--color-neutral-600)">{{ tonoLabel }}</span>
+              </div>
+              <input type="range" min="0.5" max="1.6" step="0.05" value="{{ tono }}" onChange="{{ onTono }}" style="width:100%;accent-color:var(--color-accent)"></input>
+            </div>
+            <button type="button" onClick="{{ provaVoce }}" class="btn btn-secondary" style="padding:9px 13px;font-size:13px;cursor:pointer;align-self:flex-start">Prova la voce</button>
+          </div>
+
           <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
             <button type="button" onClick="{{ toggleMuto }}" class="btn btn-secondary" style="padding:9px 13px;font-size:13px;cursor:pointer;white-space:nowrap">{{ audioBtn }}</button>
             <span style="font-size:12.5px;letter-spacing:0.06em;text-transform:uppercase;color:var(--color-neutral-600)">{{ quanteVoci }}</span>
@@ -431,7 +523,7 @@
               <sc-for list="{{ vociTrovate }}" as="v" hint-placeholder-count="3">
                 <div>
                   <sc-if value="{{ v.on }}" hint-placeholder-val="{{ false }}">
-                    <button type="button" onClick="{{ v.pick }}" style="border:1px solid var(--color-accent-2);background:var(--color-accent-2);color:var(--color-bg);padding:8px 12px;border-radius:var(--radius-md);font-size:13px;cursor:pointer;white-space:nowrap">{{ v.label }}</button>
+                    <button type="button" onClick="{{ v.pick }}" style="border:1px solid #eeff00;background:#eeff00;color:#191817;padding:8px 12px;border-radius:var(--radius-md);font-size:13px;cursor:pointer;white-space:nowrap">{{ v.label }}</button>
                   </sc-if>
                   <sc-if value="{{ v.off }}" hint-placeholder-val="{{ true }}">
                     <button type="button" onClick="{{ v.pick }}" style="border:1px solid var(--color-divider);background:none;color:inherit;padding:8px 12px;border-radius:var(--radius-md);font-size:13px;cursor:pointer;white-space:nowrap" style-hover="border-color:var(--color-accent-2)">{{ v.label }}</button>
@@ -487,6 +579,16 @@
 
     <sc-if value="{{ isChat }}" hint-placeholder-val="{{ false }}">
       <div style="display:flex;flex-direction:column;gap:14px;padding-top:8px">
+
+        <div style="display:flex;flex-direction:column;gap:7px;border-bottom:1px solid var(--color-divider);padding-bottom:14px">
+          <div style="font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--color-neutral-600)">Atteggiamento della voce</div>
+          <select value="{{ atteggiamentoSel }}" onChange="{{ onAtteggiamento }}" class="input" style="width:100%;cursor:pointer">
+            <sc-for list="{{ atteggiamenti }}" as="a" hint-placeholder-count="9">
+              <option value="{{ a.valore }}">{{ a.label }}</option>
+            </sc-for>
+          </select>
+        </div>
+
         <div style="display:flex;flex-direction:column;gap:14px">
           <sc-for list="{{ messaggi }}" as="m" hint-placeholder-count="3">
             <div>
@@ -505,6 +607,10 @@
             </div>
           </sc-for>
         </div>
+
+        <sc-if value="{{ pensando }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:13.5px;font-style:italic;color:var(--color-neutral-600)">{{ nomeAgentePiano }} sta scrivendo…</div>
+        </sc-if>
 
         <div style="display:flex;flex-wrap:wrap;gap:7px;border-top:1px solid var(--color-divider);padding-top:14px">
           <sc-for list="{{ rapide }}" as="r" hint-placeholder-count="4">
@@ -533,7 +639,7 @@
 
   </div>
 
-  <div style="display:flex;border-top:1px solid var(--color-divider);padding:0 8px 26px;background:var(--color-bg)">
+          <div style="display:flex;border-top:1px solid var(--color-divider);padding:0 8px calc(env(safe-area-inset-bottom) + 14px);background:var(--color-bg);flex:none">
     <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
       <button type="button" onClick="{{ t.go }}" style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;padding:12px 2px 6px;cursor:pointer;color:inherit">
         <sc-if value="{{ t.on }}" hint-placeholder-val="{{ false }}">
@@ -553,9 +659,8 @@
   </div>
 
 </div>
-</x-import>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:470,&quot;height&quot;:940},&quot;nomeAgente&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Pericle&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Personalità&quot;},&quot;tono&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Adattivo&quot;,&quot;Dolce&quot;,&quot;Ironica&quot;,&quot;Esigente&quot;,&quot;Complice&quot;,&quot;Calma&quot;],&quot;default&quot;:&quot;Adattivo&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Personalità&quot;},&quot;minutiPatto&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5,&quot;min&quot;:3,&quot;max&quot;:15,&quot;step&quot;:1,&quot;unit&quot;:&quot;min&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;streakVisibile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:412,&quot;height&quot;:915},&quot;nomeAgente&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Pericle&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Personalità&quot;},&quot;tono&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Adattivo&quot;,&quot;Dolce&quot;,&quot;Ironica&quot;,&quot;Esigente&quot;,&quot;Complice&quot;,&quot;Calma&quot;,&quot;Energica&quot;,&quot;Severa&quot;,&quot;Professionale&quot;],&quot;default&quot;:&quot;Adattivo&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Personalità&quot;},&quot;minutiPatto&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5,&quot;min&quot;:3,&quot;max&quot;:15,&quot;step&quot;:1,&quot;unit&quot;:&quot;min&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Comportamento&quot;},&quot;streakVisibile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Comportamento&quot;}}">
 const VOICE = {
   Dolce: {
     nome: "dolce",
@@ -634,13 +739,181 @@ const VOICE = {
   }
 };
 
+const RISPOSTE = {
+  Dolce: {
+    fatto: ["Bravo. Segnalo, che conta.", "Una in meno, con calma arriviamo alla fine.", "Bene così. Un passo alla volta va benissimo."],
+    crollo: ["Va bene anche non farcela. Scegline una piccola e basta.", "Nessun rimprovero. Respira e poi vediamo cosa è possibile.", "Oggi è pesante, lo sento. Basta un gesto minuscolo."],
+    cura: ["Il corpo prima del lavoro: mangia con calma, respira.", "Fermati un momento, bevi qualcosa e sciogli le spalle.", "Prenditi cinque minuti per te: non sono persi, sono necessari."],
+    patto: ["Cinque minuti soli. Se dopo vuoi smettere, smetti davvero.", "Non serve partire forte, basta partire piano.", "Facciamo il pezzettino più piccolo possibile, insieme."],
+    chiamata: ["Scrivi due righe prima di comporre, ti aiuta a partire.", "Parti dalla chiamata più semplice, così ti scaldi piano.", "Non serve un discorso perfetto, basta dire perché chiami."],
+    campo: ["Vestiti e esci, il resto viene da sé una volta fuori.", "Anche solo dieci minuti in campo contano, non serve tutto oggi.", "Porta acqua e vai piano: il caldo non aiuta a spingere."],
+    burocrazia: ["Metti tutto in una cartella sola, anche solo quello aiuta.", "Compila quel che sai a memoria, il resto lo cerchiamo dopo.", "Un modulo alla volta, senza fretta di finire oggi."],
+    sfogo: ["Dimmi tutto, senza filtri. Ti ascolto e non giudico.", "Racconta pure, prenditi il tempo che ti serve.", "Sono qui. Di' quello che ti pesa, anche in disordine."],
+    saluto: ["Ciao. Come stai, davvero?", "Eccomi. Dimmi come va la giornata.", "Ciao a te. Prendiamola con calma, oggi."],
+    grazie: ["Di niente. Ci sono per questo.", "Figurati. Continua così, piano piano.", "Sempre volentieri. Oggi hai fatto abbastanza."],
+    spinta: ["Non devi essere al massimo, devi solo cominciare.", "Un passo piccolo va benissimo, l'importante è farlo.", "Non serve la voglia, basta il primo minuto."]
+  },
+  Ironica: {
+    fatto: ["Guarda tu. Registrato.", "Miracoli quotidiani. Segnato.", "Visto? Non era impossibile."],
+    crollo: ["Allora abbassiamo l'asticella finché non ci passi sopra camminando.", "Ok, oggi puntiamo basso. Molto basso.", "Va bene, giornata no. Scegline una ridicolmente piccola."],
+    cura: ["Mangiare in piedi davanti al telefono non è pranzare.", "Bevi qualcosa, che non sei una pianta grassa.", "Pausa vera, non lo scroll che chiami pausa."],
+    patto: ["Cinque minuti. Se dopo mi dici che smetti, ti credo. Poco, ma ti credo.", "Non stai pensando: stai rimandando con stile.", "Cinque minuti, cronometrati. Poi puoi anche mollare, promesso."],
+    chiamata: ["Le chiamate non si fanno da sole, purtroppo.", "Scrivi i nomi, parti dalla più facile, e via.", "Due righe prima di chiamare, così non balbetti."],
+    campo: ["Il campo non aspetta e nemmeno tu dovresti.", "Scarpe e vai, il divano non scappa.", "Dieci minuti, poi decidi se sei ancora vivo."],
+    burocrazia: ["La burocrazia non si autocompila, lo vorrei anch'io.", "Metti i documenti insieme, che almeno sembri organizzato.", "Un modulo alla volta, che tanto non finisce mai comunque."],
+    sfogo: ["Sputa il rospo. Poi vediamo quanto era grosso davvero.", "Dai, sfogati. Sono un'app, non lo dico in giro.", "Racconta pure, tanto io non giudico, giudicano gli altri."],
+    saluto: ["Ciao. Novità o siamo alle solite?", "Eccoti. Cosa rimandiamo oggi?", "Ciao. Spero tu non sia già bloccato."],
+    grazie: ["Prego. Ora usa la gratitudine per fare la cosa.", "Di nulla. Torna al lavoro, va'.", "Figurati. Non serve ringraziare, serve iniziare."],
+    spinta: ["Nessuno ti guarda. Fai la cosa noiosa e finiamola.", "Tre minuti di coraggio, poi il resto viene da sé.", "Meno pensiero, più azione. Parti."]
+  },
+  Esigente: {
+    fatto: ["Registrato. Avanti.", "Bene. Prossima.", "Fatto è fatto. Non fermarti."],
+    crollo: ["Una cosa, la più piccola. Non zero.", "Non è un'opzione fermarsi del tutto. Riduci, non azzerare.", "Va bene rallentare. Fermarsi no."],
+    cura: ["Mangia bene e stacca dallo schermo: rendi meno da fuso.", "Bevi e muoviti: il corpo fermo rallenta la testa.", "Pausa vera, cinque minuti, poi si torna a lavorare."],
+    patto: ["Cinque minuti. Poi ne parliamo.", "Il blocco si rompe muovendosi, non pensandoci.", "Parti adesso, non quando ti senti pronto."],
+    chiamata: ["Chiama la più difficile per prima, e levati il pensiero.", "Tre nomi, tre chiamate, oggi. Non domani.", "Meno preparazione, più telefono in mano."],
+    campo: ["Vestiti e vai. Il campo non si lavora da qui.", "Un'ora, concentrata, poi valuti il resto.", "Il caldo è una scusa. Parti presto e basta."],
+    burocrazia: ["Apri la pratica adesso, non quando avrai voglia.", "Documenti in ordine, oggi, non un giorno qualsiasi.", "Un modulo alla volta, ma comincia subito."],
+    sfogo: ["Dimmelo in tre righe, poi torniamo al punto.", "Sfogati, ma poi si riparte: non è una scusa per fermarsi.", "Capito. Ora rimettiamoci in moto."],
+    saluto: ["Bene, sei qui. Cosa c'è da fare oggi.", "Ciao. Andiamo dritti al punto.", "Eccoti. Prima cosa della lista, quale è."],
+    grazie: ["Non serve ringraziare, serve fare.", "Bene. Ora torna alla lista.", "Ricevuto. Avanti col prossimo."],
+    spinta: ["Non serve motivazione, serve iniziare.", "Meno scuse, più azione.", "Fallo adesso, non quando ti senti pronto."]
+  },
+  Complice: {
+    fatto: ["Perfetto. Segnato.", "Bravo, davvero. Avanti la prossima.", "Bene così, ti tengo il conto io."],
+    crollo: ["Giornata pesante, ho capito. Scegline una minuscola.", "Va bene fermarsi un attimo. Poi ripartiamo insieme.", "Ci sono giorni così. Scegliamo la cosa più leggera."],
+    cura: ["Fermati un attimo: mangia, respira, poi si riprende.", "Bevi qualcosa con me, dai. Due minuti e via.", "Occhi via dallo schermo un momento, ti fa bene."],
+    patto: ["Cinque minuti insieme. Poi decidi tu.", "Ci sono. Da dove partiamo, dalla cosa più facile?", "Facciamolo insieme, cinque minuti e vediamo come va."],
+    chiamata: ["Ti tengo compagnia mentre fai la prima chiamata.", "Parti dalla più facile, il resto viene da sé.", "Scrivi due righe insieme a me, poi chiami."],
+    campo: ["Vado con te fino alla porta, poi tocca a te.", "Dieci minuti in campo, giusto per iniziare.", "Vestiti, esci, e dimmi come va quando torni."],
+    burocrazia: ["Mettiamo insieme i documenti, uno alla volta.", "Comincia dalla parte più facile della pratica.", "Ti aiuto a tenere il conto di cosa manca."],
+    sfogo: ["Racconta. Resta tra noi.", "Dimmi tutto, ti ascolto volentieri.", "Sfogati pure, non c'è fretta."],
+    saluto: ["Ciao. Come butta oggi?", "Eccomi qui. Raccontami la giornata.", "Ciao a te. Partiamo insieme?"],
+    grazie: ["Ma di che. Ci sono per questo.", "Figurati, è un piacere.", "Sempre con te. Andiamo avanti."],
+    spinta: ["Comincia e ti tengo compagnia.", "Un passo, il primo. Poi vado avanti con te.", "Non devi farlo da solo, io ci sono."]
+  },
+  Calma: {
+    fatto: ["Annotato.", "Bene, con calma. Un passo alla volta.", "Fatto. Nessuna fretta per il prossimo."],
+    crollo: ["Riduci l'obiettivo finché diventa possibile.", "Va bene rallentare. Scegli la cosa più piccola.", "Un respiro, poi scegli solo un gesto minimo."],
+    cura: ["Mangia lentamente, occhi lontano dallo schermo.", "Un bicchiere d'acqua, con calma, prima di continuare.", "Fermati un momento: spalle giù, respiro lungo."],
+    patto: ["Cinque minuti, senza aspettative.", "Un compito solo, piccolo, adesso.", "Parti piano, nessuno ha fretta qui."],
+    chiamata: ["Scrivi due righe con calma, poi chiama.", "Una chiamata alla volta, senza fretta.", "Respira prima di comporre il numero."],
+    campo: ["Un pezzo alla volta, con il tuo ritmo.", "Vestiti con calma, poi esci quando sei pronto.", "Dieci minuti bastano per iniziare."],
+    burocrazia: ["Un documento alla volta, senza fretta di finire.", "Metti in ordine solo quello che serve oggi.", "Compila con calma i campi che conosci."],
+    sfogo: ["Dillo con parole tue, senza fretta.", "Prenditi il tempo che ti serve per raccontare.", "Parla piano, ti ascolto con calma."],
+    saluto: ["Ciao. Come procede la giornata, con calma?", "Eccomi. Respira, poi dimmi come va.", "Ciao a te. Prendiamocela con calma oggi."],
+    grazie: ["Non c'è di che. Con calma, sempre.", "Figurati. Un passo alla volta va bene così.", "Prego. Nessuna fretta, mai."],
+    spinta: ["Il primo gesto conta più dell'intenzione.", "Basta un minimo passo, con calma.", "Non serve slancio, basta cominciare piano."]
+  }
+};
+
+const ATTEGGIAMENTI = [
+  { k: "Dolce", label: "Dolce e incoraggiante", rate: 0.85, pitch: 1.15 },
+  { k: "Ironica", label: "Ironica e pungente", rate: 0.95, pitch: 1.05 },
+  { k: "Esigente", label: "Esigente, nessuna scusa", rate: 1.0, pitch: 0.9 },
+  { k: "Complice", label: "Complice e leggera", rate: 0.9, pitch: 1.1 },
+  { k: "Calma", label: "Calma e lucida", rate: 0.78, pitch: 0.95 },
+  { k: "Energica", label: "Energica e grintosa", rate: 1.15, pitch: 1.2 },
+  { k: "Severa", label: "Severa e tagliente", rate: 0.88, pitch: 0.65 },
+  { k: "Professionale", label: "Professionale e asciutta", rate: 0.95, pitch: 0.85 }
+];
+
 const MOODS = [
   { k: "palla", label: "In palla", tono: "Esigente" },
+  { k: "motivato", label: "Motivato", tono: "Esigente" },
   { k: "ok", label: "Ok", tono: "Ironica" },
+  { k: "distratto", label: "Distratto", tono: "Ironica" },
   { k: "piatto", label: "Piatto", tono: "Complice" },
+  { k: "nervoso", label: "Nervoso", tono: "Calma" },
   { k: "stanco", label: "Stanco", tono: "Calma" },
   { k: "terra", label: "A terra", tono: "Dolce" }
 ];
+
+VOICE.Energica = {
+  nome: "energica",
+  apri: ["Si parte! Prima cosa, adesso, con energia."],
+  meta: ["Grande, stai spingendo! Continua così."],
+  fine: ["Tutto fatto, alla grande! Goditela."],
+  sblocco: "Muoviti e il blocco salta. Dai!",
+  patto: "Cinque minuti a tutta. Poi vediamo.",
+  cura: "Bevi, mangia, muoviti: carburante!",
+  fatto: "Ottimo! Segnato. Prossima!",
+  crollo: "Ok, respira. Poi una cosa piccola e riparti.",
+  spinta: "Forza, si comincia! Un minuto e sei dentro.",
+  sfogo: "Dimmi tutto e poi ci scrolliamo di dosso il peso.",
+  diario: "Cosa hai portato a casa oggi?",
+  chiusura: "Giornata chiusa alla grande. A domani!"
+};
+VOICE.Severa = {
+  nome: "severa",
+  apri: ["Prima cosa. Subito."],
+  meta: ["Continua. Non è finita."],
+  fine: ["Fatto. Domani si alza il livello."],
+  sblocco: "Basta pensare. Esegui.",
+  patto: "Cinque minuti. Non discuto.",
+  cura: "Mangia e stacca. Poi torna al lavoro.",
+  fatto: "Bene. Avanti.",
+  crollo: "Una cosa. La più piccola. Adesso.",
+  spinta: "Le scuse non contano. Cominci o no.",
+  sfogo: "Due righe, poi si riprende.",
+  diario: "Cosa hai sbagliato, e cosa correggi domani.",
+  chiusura: "Chiuso. Domani puntuale."
+};
+VOICE.Professionale = {
+  nome: "professionale",
+  apri: ["Iniziamo dalla priorità più alta."],
+  meta: ["In linea con il programma. Procedi."],
+  fine: ["Obiettivi di giornata completati."],
+  sblocco: "Riduciamo l'attività al primo passo concreto.",
+  patto: "Cinque minuti, poi rivalutiamo.",
+  cura: "Pausa breve: idratazione e distacco dallo schermo.",
+  fatto: "Registrato. Prossima attività.",
+  crollo: "Ridimensioniamo l'obiettivo di oggi.",
+  spinta: "L'avvio è la parte critica: parti dal passo minimo.",
+  sfogo: "Dimmi la situazione, poi vediamo le opzioni.",
+  diario: "Annota esito e prossimo passo.",
+  chiusura: "Giornata chiusa. Buon riposo."
+};
+
+RISPOSTE.Energica = {
+  fatto: ["Ottimo! Segnato.", "Grande, continua così!", "Perfetto, avanti la prossima!"],
+  crollo: ["Ok, respira. Una cosa piccola e riparti.", "Giornata dura? Abbassiamo il tiro e andiamo.", "Fermati un attimo, poi ripartiamo piano."],
+  cura: ["Bevi e muoviti, carburante!", "Mangia bene, ti serve energia vera.", "Cinque minuti di movimento e riparti carico."],
+  patto: ["Cinque minuti a tutta, poi decidi.", "Dai, si parte adesso!", "Un colpo di reni e siamo dentro."],
+  chiamata: ["Prendi il telefono e chiama, adesso!", "Una chiamata alla volta, veloce.", "Due righe e via, chiama!"],
+  campo: ["Scarpe e fuori, si va!", "Dieci minuti in campo e ti si accende la giornata.", "Muoviti, il campo ti aspetta!"],
+  burocrazia: ["Apri quella pratica e sbrighiamola!", "Un modulo alla volta, veloce.", "Documenti insieme e via."],
+  sfogo: ["Sputa tutto, poi ci scrolliamo il peso.", "Dimmi, e poi ripartiamo.", "Parla, ti ascolto, e poi si va."],
+  saluto: ["Ehi! Pronti a spaccare oggi?", "Eccomi, carico. E tu?", "Ciao! Da dove partiamo?"],
+  grazie: ["Grande! Ora avanti.", "Di niente, si va!", "Prego. Continuiamo!"],
+  spinta: ["Forza, si comincia!", "Un minuto e sei dentro, dai!", "Meno pensieri, più azione!"]
+};
+RISPOSTE.Severa = {
+  fatto: ["Bene. Avanti.", "Registrato.", "Fatto. Prossima."],
+  crollo: ["Una cosa. La più piccola. Adesso.", "Non zero. Riduci e fai.", "Fermarsi no. Rallentare sì."],
+  cura: ["Mangia e stacca. Poi lavora.", "Bevi. Non è negoziabile.", "Pausa breve, poi si riprende."],
+  patto: ["Cinque minuti. Non discuto.", "Basta pensare. Esegui.", "Parti adesso."],
+  chiamata: ["Chiama. Adesso.", "La più difficile per prima.", "Telefono in mano, meno preamboli."],
+  campo: ["Vestiti e vai.", "Un'ora, concentrata.", "Il caldo è una scusa. Presto e via."],
+  burocrazia: ["Apri la pratica adesso.", "Documenti in ordine, oggi.", "Un modulo. Comincia."],
+  sfogo: ["Due righe, poi si riprende.", "Capito. Torniamo al punto.", "Ricevuto. Avanti."],
+  saluto: ["Bene. Cosa c'è da fare.", "Al punto.", "Prima attività, quale."],
+  grazie: ["Non serve. Fai.", "Torna alla lista.", "Ricevuto."],
+  spinta: ["Le scuse non contano.", "Cominci o no.", "Esegui."]
+};
+RISPOSTE.Professionale = {
+  fatto: ["Registrato. Prossima attività.", "Completato. Procediamo.", "Annotato correttamente."],
+  crollo: ["Ridimensioniamo l'obiettivo di oggi.", "Riduciamo il carico a un'attività singola.", "Rivediamo le priorità: una sola cosa."],
+  cura: ["Pausa breve: idratazione e distacco dallo schermo.", "Pasto regolare, poi ripresa.", "Cinque minuti di recupero, poi si continua."],
+  patto: ["Cinque minuti, poi rivalutiamo.", "Riduciamo al primo passo concreto.", "Avvio breve e verifica successiva."],
+  chiamata: ["Prepara due righe di apertura, poi chiama.", "Ordina i contatti per priorità.", "Inizia dalla chiamata più semplice."],
+  campo: ["Pianifica un blocco di un'ora in campo.", "Attrezzatura pronta, poi avvio.", "Un pezzo alla volta, con pause."],
+  burocrazia: ["Raccogli la documentazione in un'unica cartella.", "Compila i campi noti, segna i mancanti.", "Un modulo per volta, con verifica finale."],
+  sfogo: ["Dimmi la situazione, poi vediamo le opzioni.", "Esponi il problema: cerchiamo la soluzione.", "Ascolto, poi definiamo il prossimo passo."],
+  saluto: ["Buongiorno. Qual è la priorità di oggi?", "Pronto. Da quale attività iniziamo?", "Salve. Vediamo il programma."],
+  grazie: ["Prego. Procediamo.", "A disposizione.", "Volentieri. Avanti col prossimo punto."],
+  spinta: ["L'avvio è la parte critica: parti dal passo minimo.", "Definisci il primo passo e comincia.", "Riduci l'attività fino a renderla immediata."]
+};
 
 const PIANI = {
   Iniziare: ["Telefono in un'altra stanza, adesso.", "Apri solo la cosa da fare, senza farla.", "Scrivi o fai la prima riga, anche sbagliata."],
@@ -680,7 +953,10 @@ class Component extends DCLogic {
       { id: 2, g: OGGI_IDX, ora: "11:00", txt: "Chiamata al fornitore del concime", fatto: false },
       { id: 3, g: OGGI_IDX, ora: "16:00", txt: "CAA: portare i documenti del fascicolo", fatto: false },
       { id: 4, g: (OGGI_IDX + 1) % 7, ora: "09:00", txt: "Chiudere la pratica IMU", fatto: false },
-      { id: 5, g: (OGGI_IDX + 2) % 7, ora: "18:30", txt: "Mezz'ora per te, senza schermo", fatto: false }
+      { id: 5, g: (OGGI_IDX + 2) % 7, ora: "18:30", txt: "Mezz'ora per te, senza schermo", fatto: false },
+      { id: 6, g: (OGGI_IDX + 1) % 7, ora: "14:30", txt: "Corso di informatica — lezione base Word/Excel", fatto: false, tag: "Formazione" },
+      { id: 7, g: (OGGI_IDX + 3) % 7, ora: "09:30", txt: "Formazione: preparazione slide del corso", fatto: false, tag: "Formazione" },
+      { id: 8, g: (OGGI_IDX + 3) % 7, ora: "15:00", txt: "Corso di informatica — aula, modulo avanzato", fatto: false, tag: "Formazione" }
     ],
     memo: [
       { id: 11, txt: "Chiedere il preventivo delle cassette", ricorda: true },
@@ -699,6 +975,14 @@ class Component extends DCLogic {
     running: false,
     respiro: false,
     pause: 1,
+    selfcare: [
+      { k: "acqua", ora: "08:00", txt: "Bere un bicchiere d'acqua appena sveglio", done: false },
+      { k: "stretch", ora: "08:10", txt: "Cinque minuti di stretching", done: false },
+      { k: "cura", ora: "08:20", txt: "Mezz'ora per la cura personale", done: false },
+      { k: "pesci", ora: "08:50", txt: "Dare da mangiare ai pesci", done: false },
+      { k: "casa", ora: "09:00", txt: "Un giro veloce di cura della casa", done: false },
+      { k: "relax", ora: "21:30", txt: "Attività di relax prima di dormire", done: false }
+    ],
     abitudini: [
       { k: "cibo", label: "Mangiare seduto a un tavolo", nota: "Non in piedi, non davanti al telefono", done: false },
       { k: "respiro", label: "Tre minuti di respiro", nota: "Prima di ripartire", done: false },
@@ -710,12 +994,22 @@ class Component extends DCLogic {
     giornataChiusa: false,
     timbro: "donna",
     voceScelta: "",
+    velocita: 0.9,
+    tono: 1.1,
     mutoAudio: false,
     installabile: false,
     installata: false,
     bozza: "",
     registrando: false,
     messaggi: [{ chi: "vera", txt: "Sono qui. Dimmi dov'è che ti sei fermato e lo rendiamo piccolo." }],
+    chatIdx: {},
+    pensando: false,
+    registrandoNota: false,
+    notaTesto: "",
+    notaOra: "09:00",
+    alertAttivi: false,
+    alertBloccato: false,
+    tonoManuale: "",
     giro: 0
   };
 
@@ -734,8 +1028,15 @@ class Component extends DCLogic {
       if (salvato) this.setState({ avatar: salvato });
       const timbro = localStorage.getItem("pericle.timbro");
       if (timbro) this.setState({ timbro });
+      if (localStorage.getItem("pericle.alert") === "on") this.setState({ alertAttivi: true });
+      const att = localStorage.getItem("pericle.atteggiamento");
+      if (att) this.setState({ tonoManuale: att });
       const voceScelta = localStorage.getItem("pericle.voce");
       if (voceScelta) this.setState({ voceScelta });
+      const velocita = parseFloat(localStorage.getItem("pericle.velocita"));
+      if (!isNaN(velocita)) this.setState({ velocita });
+      const tono = parseFloat(localStorage.getItem("pericle.tono"));
+      if (!isNaN(tono)) this.setState({ tono });
     } catch (e) { /* storage non disponibile */ }
 
     if (window.speechSynthesis) {
@@ -750,6 +1051,7 @@ class Component extends DCLogic {
     if (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) {
       this.setState({ installata: true });
     }
+    this.allertaTi = setInterval(() => this.controllaAllert(), 20000);
     this.t = setInterval(() => {
       if (!this.state.running) return;
       const l = this.rimasto() - 1;
@@ -759,8 +1061,37 @@ class Component extends DCLogic {
       } else this.setState({ left: l });
     }, 1000);
   }
+  controllaAllert() {
+    if (!this.state.alertAttivi || !("Notification" in window) || Notification.permission !== "granted") return;
+    const ora = new Date();
+    const adesso = String(ora.getHours()).padStart(2, "0") + ":" + String(ora.getMinutes()).padStart(2, "0");
+    const oggi = ora.toDateString();
+    this.state.selfcare.forEach(c => {
+      if (c.ora === adesso && this.state.avvisati !== c.k + oggi) {
+        new Notification(this.nomeAgente() + " ricorda", { body: c.txt, tag: c.k });
+        this.setState({ avvisati: c.k + oggi });
+      }
+    });
+  }
+  toggleAllert() {
+    if (this.state.alertAttivi) {
+      this.setState({ alertAttivi: false });
+      try { localStorage.setItem("pericle.alert", "off"); } catch (e) { /* nulla */ }
+      return;
+    }
+    if (!("Notification" in window)) return;
+    Notification.requestPermission().then(p => {
+      if (p === "granted") {
+        this.setState({ alertAttivi: true, alertBloccato: false });
+        try { localStorage.setItem("pericle.alert", "on"); } catch (e) { /* nulla */ }
+      } else {
+        this.setState({ alertBloccato: true });
+      }
+    });
+  }
   componentWillUnmount() {
     clearInterval(this.t);
+    clearInterval(this.allertaTi);
     clearTimeout(this.vt);
     if (window.speechSynthesis) {
       try { window.speechSynthesis.cancel(); } catch (e) { /* nulla */ }
@@ -771,6 +1102,7 @@ class Component extends DCLogic {
   }
 
   tonoAttivo() {
+    if (this.state.tonoManuale) return this.state.tonoManuale;
     const p = this.props.tono || "Adattivo";
     if (p !== "Adattivo") return p;
     const m = MOODS.filter(x => x.k === this.state.mood)[0];
@@ -815,8 +1147,9 @@ class Component extends DCLogic {
       const v = this.scegliVoce();
       if (v) u.voice = v;
       u.lang = (v && v.lang) || "it-IT";
-      if (this.state.timbro === "uomo") { u.pitch = 0.55; u.rate = 0.84; u.volume = 1; }
-      else { u.pitch = 1.1; u.rate = 0.9; u.volume = 1; }
+      u.pitch = this.state.tono;
+      u.rate = this.state.velocita;
+      u.volume = 1;
       u.onstart = () => this.setState({ vocePlay: true });
       u.onend = u.onerror = () => this.setState({ vocePlay: false });
       sint.speak(u);
@@ -826,11 +1159,37 @@ class Component extends DCLogic {
     }
   }
   cambiaTimbro(t) {
-    this.setState({ timbro: t });
-    try { localStorage.setItem("pericle.timbro", t); } catch (e) { /* nulla */ }
+    const velocita = t === "uomo" ? 0.84 : 0.9;
+    const tono = t === "uomo" ? 0.55 : 1.1;
+    this.setState({ timbro: t, velocita, tono });
+    try {
+      localStorage.setItem("pericle.timbro", t);
+      localStorage.setItem("pericle.velocita", velocita);
+      localStorage.setItem("pericle.tono", tono);
+    } catch (e) { /* nulla */ }
     setTimeout(() => this.parla(2600, t === "uomo"
       ? "Da adesso ti parlo io. Poche parole, e le facciamo."
       : "Da adesso ti parlo io. Piano, ma non ti mollo."), 60);
+  }
+  cambiaAtteggiamento(k) {
+    const a = ATTEGGIAMENTI.filter(x => x.k === k)[0];
+    if (!k) {
+      this.setState({ tonoManuale: "" });
+      try { localStorage.removeItem("pericle.atteggiamento"); } catch (e) { /* nulla */ }
+      return;
+    }
+    if (!a) return;
+    this.setState({ tonoManuale: k, velocita: a.rate, tono: a.pitch });
+    try {
+      localStorage.setItem("pericle.atteggiamento", k);
+      localStorage.setItem("pericle.velocita", a.rate);
+      localStorage.setItem("pericle.tono", a.pitch);
+    } catch (e) { /* nulla */ }
+    setTimeout(() => this.parla(2800, (VOICE[k] || VOICE.Ironica).spinta), 60);
+  }
+  regolaVoce(campo, val) {
+    this.setState({ [campo]: val });
+    try { localStorage.setItem("pericle." + campo, val); } catch (e) { /* nulla */ }
   }
   stopVoce() {
     clearTimeout(this.vt);
@@ -847,6 +1206,26 @@ class Component extends DCLogic {
       this.parla(2200, "Ecco, adesso ho una faccia.");
     };
     r.readAsDataURL(file);
+  }
+  avviaRegistrazioneNota() {
+    const R = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!R) { this.setState({ notaVoceMancante: true }); return; }
+    const r = new R();
+    r.lang = "it-IT";
+    r.interimResults = false;
+    r.onresult = (e) => {
+      const t = e.results[0][0].transcript;
+      this.setState(s => ({ notaTesto: (s.notaTesto ? s.notaTesto + " " : "") + t, registrandoNota: false }));
+    };
+    r.onerror = () => this.setState({ registrandoNota: false });
+    r.onend = () => this.setState({ registrandoNota: false });
+    this.recognizer = r;
+    this.setState({ registrandoNota: true });
+    r.start();
+  }
+  fermaRegistrazioneNota() {
+    if (this.recognizer) try { this.recognizer.stop(); } catch (e) { /* nulla */ }
+    this.setState({ registrandoNota: false });
   }
   aggiungi() {
     const t = (this.state.nuovoTxt || "").trim();
@@ -873,20 +1252,84 @@ class Component extends DCLogic {
     this.parla(3200, txt);
   }
 
-  manda(txt, etichetta) {
-    if (!txt || !txt.trim()) return;
-    const v = this.voce();
+  categoria(txt) {
     const t = txt.trim().toLowerCase();
-    let r = v.spinta;
-    if (t.indexOf("fatto") > -1 || t.indexOf("finito") > -1) r = v.fatto;
-    else if (t.indexOf("non ce la faccio") > -1 || t.indexOf("mollo") > -1 || t.indexOf("stanc") > -1) r = v.crollo;
-    else if (t.indexOf("mangi") > -1 || t.indexOf("dorm") > -1 || t.indexOf("pausa") > -1) r = v.cura;
-    else if (t.indexOf("blocc") > -1 || t.indexOf("rimand") > -1 || t.indexOf("inizi") > -1 || t.indexOf("riesc") > -1) r = v.patto;
-    else if (t.indexOf("sfog") > -1 || t.indexOf("basta") > -1) r = v.sfogo;
+    if (t.indexOf("grazie") > -1) return "grazie";
+    if (/^(ciao|buongiorno|buonasera|buondì|ehi|hey)\b/.test(t)) return "saluto";
+    if (t.indexOf("fatto") > -1 || t.indexOf("finito") > -1 || t.indexOf("completat") > -1) return "fatto";
+    if (t.indexOf("non ce la faccio") > -1 || t.indexOf("mollo") > -1 || t.indexOf("non riesco") > -1) return "crollo";
+    if (t.indexOf("chiamat") > -1 || t.indexOf("telefon") > -1) return "chiamata";
+    if (t.indexOf("campo") > -1 || t.indexOf("pianta") > -1 || t.indexOf("raccolt") > -1 || t.indexOf("limon") > -1) return "campo";
+    if (t.indexOf("pratica") > -1 || t.indexOf("document") > -1 || t.indexOf("burocraz") > -1 || t.indexOf("caa") > -1 || t.indexOf("fascicol") > -1 || t.indexOf("imu") > -1) return "burocrazia";
+    if (t.indexOf("blocc") > -1 || t.indexOf("rimand") > -1 || t.indexOf("inizi") > -1 || t.indexOf("non parto") > -1) return "patto";
+    if (t.indexOf("acqua") > -1 || t.indexOf("mangi") > -1 || t.indexOf("dorm") > -1 || t.indexOf("pausa") > -1 || t.indexOf("respir") > -1 || t.indexOf("stanc") > -1) return "cura";
+    if (t.indexOf("sfog") > -1 || t.indexOf("basta") > -1 || t.indexOf("pesante") > -1 || t.indexOf("triste") > -1 || t.indexOf("terra") > -1) return "sfogo";
+    return "spinta";
+  }
+
+  rispostaPer(cat) {
+    const tono = this.tonoAttivo();
+    const banco = ((RISPOSTE[tono] || RISPOSTE.Ironica)[cat]) || RISPOSTE[tono].spinta;
+    const key = tono + ":" + cat;
+    const idx = (this.state.chatIdx[key] || 0) % banco.length;
+    this.setState(s => ({ chatIdx: Object.assign({}, s.chatIdx, { [key]: idx + 1 }) }));
+    return banco[idx];
+  }
+
+  descrizioneTono() {
+    const d = {
+      Dolce: "dolce e incoraggiante",
+      Ironica: "ironica e un po' pungente, prende in giro con affetto",
+      Esigente: "esigente, non accetta scuse, diretta",
+      Complice: "complice e leggera, come un'amica",
+      Calma: "calma e lucida, quasi da terapeuta"
+    };
+    return d[this.tonoAttivo()] || d.Ironica;
+  }
+
+  async chiediAClaude(testoUtente) {
+    if (!window.claude || !window.claude.complete) throw new Error("claude non disponibile");
+    const s = this.state;
+    const daFare = s.tasks.filter(t => !t.done).map(t => t.txt);
+    const prossimi = s.impegni.filter(i => i.g === OGGI_IDX && !i.fatto)
+      .sort((a, b) => a.ora < b.ora ? -1 : 1).slice(0, 3).map(i => i.ora + " " + i.txt);
+    const memoAperti = s.memo.filter(m => m.ricorda).map(m => m.txt);
+
+    const sistema = [
+      "Sei " + this.nomeAgente() + ", assistente italiana che motiva una persona sul lavoro (agricoltura, chiamate, burocrazia) e sulla cura di sé (cibo, acqua, pause, sonno).",
+      "Tono attuale: " + this.descrizioneTono() + ".",
+      "Umore dichiarato oggi: " + (s.mood || "non dichiarato") + ".",
+      "Cose ancora da fare oggi: " + (daFare.length ? daFare.join("; ") : "nessuna, tutto fatto") + ".",
+      "Prossimi impegni in agenda: " + (prossimi.length ? prossimi.join("; ") : "nessuno") + ".",
+      "Memo attivi da ricordare: " + (memoAperti.length ? memoAperti.join("; ") : "nessuno") + ".",
+      "Rispondi sempre in italiano, in una o due frasi brevi, mai un elenco puntato, coerente col tono indicato.",
+      "Niente emoji, niente presentazioni: rispondi dritta a quello che scrive la persona, collegandoti se utile a task, agenda, memo o umore sopra."
+    ].join(" ");
+
+    const storia = s.messaggi.slice(-6).map(m => ({ role: m.chi === "vera" ? "assistant" : "user", content: m.txt }));
+    storia.push({ role: "user", content: testoUtente });
+
+    const risposta = await window.claude.complete({ system: sistema, messages: storia, max_tokens: 200 });
+    const pulita = (risposta || "").trim();
+    if (!pulita) throw new Error("risposta vuota");
+    return pulita;
+  }
+
+  async manda(txt, etichetta) {
+    if (!txt || !txt.trim()) return;
+    const testo = txt.trim();
     this.setState(s => ({
       bozza: "",
-      messaggi: s.messaggi.concat([{ chi: etichetta || "io", txt: txt.trim() }, { chi: "vera", txt: r }])
+      pensando: true,
+      messaggi: s.messaggi.concat([{ chi: etichetta || "io", txt: testo }])
     }));
+    let r;
+    try {
+      r = await this.chiediAClaude(testo);
+    } catch (e) {
+      r = this.rispostaPer(this.categoria(testo));
+    }
+    this.setState(s => ({ pensando: false, messaggi: s.messaggi.concat([{ chi: "vera", txt: r }]) }));
     this.parla(3200, r);
   }
 
@@ -937,6 +1380,13 @@ class Component extends DCLogic {
       timbroUomo: s.timbro === "uomo",
       scegliDonna: () => this.cambiaTimbro("donna"),
       scegliUomo: () => this.cambiaTimbro("uomo"),
+      velocita: s.velocita,
+      tono: s.tono,
+      velocitaLabel: s.velocita.toFixed(2) + "×",
+      tonoLabel: s.tono.toFixed(2),
+      onVelocita: e => this.regolaVoce("velocita", parseFloat(e.target.value)),
+      onTono: e => this.regolaVoce("tono", parseFloat(e.target.value)),
+      provaVoce: () => this.parla(3200, "Questa è la velocità e il tono con cui ti parlo adesso."),
       audioBtn: s.mutoAudio ? "Voce spenta" : "Voce accesa",
       toggleMuto: () => {
         const muto = !s.mutoAudio;
@@ -985,6 +1435,16 @@ class Component extends DCLogic {
         pick: () => this.setState({ mood: m.k })
       })),
       vaiSblocca: () => this.setState({ tab: "sblocca" }),
+      alertOn: s.alertAttivi,
+      alertOff: !s.alertAttivi,
+      alertBloccato: s.alertBloccato,
+      toggleAlert: () => this.toggleAllert(),
+      selfcare: s.selfcare.map(c => ({
+        ora: c.ora, txt: c.txt, done: c.done, open: !c.done,
+        toggle: () => this.setState(st => ({
+          selfcare: st.selfcare.map(x => x.k === c.k ? Object.assign({}, x, { done: !x.done }) : x)
+        }))
+      })),
       vaiSfogo: () => this.setState(st => ({
         tab: "chat",
         messaggi: st.messaggi.concat([{ chi: "io", txt: "Ho bisogno di sfogarmi." }, { chi: "vera", txt: v.sfogo }])
@@ -1111,15 +1571,46 @@ class Component extends DCLogic {
         txt: m.txt, vera: m.chi === "vera", io: m.chi !== "vera",
         chi: m.chi === "vera" ? this.nomeAgente() : m.chi === "vocale" ? "Io · vocale" : "Io"
       })),
-      rapide: [
-        ["Fatto una cosa", v.fatto],
-        ["Non ce la faccio", v.crollo],
-        ["Sono bloccato", v.patto],
-        ["Motivami", v.spinta]
-      ].map(([label, r]) => ({
+      rapide: ["Fatto una cosa", "Non ce la faccio", "Sono bloccato", "Motivami"].map(label => ({
         label,
-        tap: () => this.setState(st => ({ messaggi: st.messaggi.concat([{ chi: "io", txt: label }, { chi: "vera", txt: r }]) }))
+        tap: () => this.manda(label)
       })),
+      atteggiamenti: [{ k: "", label: "Adattivo (segue l'umore)" }].concat(ATTEGGIAMENTI)
+        .map(a => ({ valore: a.k, label: a.label })),
+      atteggiamentoSel: s.tonoManuale,
+      atteggiamentoLabel: (ATTEGGIAMENTI.filter(a => a.k === s.tonoManuale)[0] || {}).label || "Adattivo (segue l'umore)",
+      onAtteggiamento: e => this.cambiaAtteggiamento(e.target.value),
+      pensando: s.pensando,
+      registrandoNota: s.registrandoNota,
+      nonRegistrandoNota: !s.registrandoNota,
+      notaVoceMancante: !!s.notaVoceMancante,
+      notaBozza: !!s.notaTesto,
+      notaTesto: s.notaTesto,
+      notaOra: s.notaOra,
+      onNotaTesto: e => this.setState({ notaTesto: e.target.value }),
+      onNotaOra: e => this.setState({ notaOra: e.target.value }),
+      avviaNota: () => this.avviaRegistrazioneNota(),
+      fermaNota: () => this.fermaRegistrazioneNota(),
+      salvaNotaAgenda: () => {
+        const t = (s.notaTesto || "").trim();
+        if (!t) return;
+        this.setState(st => ({
+          impegni: st.impegni.concat([{ id: st.prossimoId, g: OGGI_IDX, ora: st.notaOra || "09:00", txt: t, fatto: false }]),
+          prossimoId: st.prossimoId + 1,
+          notaTesto: ""
+        }));
+        this.parla(2000, "Nota messa in agenda di oggi.");
+      },
+      salvaNotaMemo: () => {
+        const t = (s.notaTesto || "").trim();
+        if (!t) return;
+        this.setState(st => ({
+          memo: st.memo.concat([{ id: st.prossimoId, txt: t, ricorda: true }]),
+          prossimoId: st.prossimoId + 1,
+          notaTesto: ""
+        }));
+        this.parla(2000, "Nota presa come memo.");
+      },
       registrando: s.registrando,
       iniziaVocale: () => this.setState({ registrando: true }),
       fineVocale: () => {

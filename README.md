@@ -11,6 +11,7 @@ e ti ricorda di mangiare, respirare e staccare. Nessun account, nessun server: t
 - **Cura** — pause dallo schermo, abitudini, chiusura di giornata con diario.
 - **Pericle** — chat con risposte rapide e messaggio vocale (simulato in questa versione).
 - **Voce** — Pericle parla davvero con le voci italiane di Android: due timbri (donna calda e bassa, uomo serio e grave), scelta della voce esatta fra quelle installate, interruttore per spegnerla.
+- **Chat con Claude** — le risposte sono generate al momento da Claude (modello Haiku), nel tono scelto e a conoscenza di agenda, memo, cose da fare e umore del giorno; se non risponde (offline, limite raggiunto) torna in automatico alle risposte pronte per categoria.
 - **Installazione** — pulsante "Installa Pericle" su Android; su iPhone, Condividi → Aggiungi alla schermata Home.
 
 ## Come si prova in locale
